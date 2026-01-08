@@ -65,10 +65,37 @@ const Projects = () => {
     <section id="projects" className="py-24 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tighter">WORKS</h2>
-            <p className="text-slate-500">Filters and Pagination integrated with Supabase.</p>
-          </div>
+        <div className="mb-16">
+  <motion.div
+    initial={{ opacity: 0, x: -20 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6 }}
+  >
+    {/* Main Title with Gradient */}
+    <h2 className="text-5xl md:text-7xl font-black mb-4 tracking-tighter leading-none">
+      SELECTED <br />
+      <span className="bg-gradient-to-r from-accent-blue via-slate-100 to-accent-purple bg-clip-text text-transparent italic">
+        WORKS
+      </span>
+    </h2>
+
+    {/* Decorative Line & Subtitle */}
+    <div className="flex flex-col md:flex-row md:items-center gap-4 mt-6">
+       <div className="h-[2px] w-16 bg-accent-blue rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+       <p className="text-slate-400 text-sm md:text-base font-medium max-w-md leading-relaxed">
+         A curation of digital experiences, where <span className="text-white">Clean Code</span> meets <span className="text-accent-blue">Intelligent Design</span>.
+       </p>
+    </div>
+
+    {/* Optional: Tech Tagline */}
+    <div className="mt-4 flex items-center gap-2">
+       <span className="text-[10px] font-mono text-slate-600 uppercase tracking-[0.4em]">
+         Web Development • Artificial Intelligence • UI/UX
+       </span>
+    </div>
+  </motion.div>
+</div>
 
           {/* Filter Bar */}
           <div className="flex gap-2 bg-white/5 p-1 rounded-full border border-white/10">

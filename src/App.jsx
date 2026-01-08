@@ -2,6 +2,7 @@ import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
+import About from './components/About';
 
 function App() {
   return (
@@ -10,13 +11,10 @@ function App() {
       <Navbar />
       
     <main>
-        <Hero /> {/* Hero Section එක මෙතනට දාන්න */}
+        <Hero /> 
+        <About/>
         <Projects/>
         
-        {/* අනෙක් Sections පසුවට... */}
-        <section id="projects" className="min-h-screen flex items-center justify-center border-t border-white/5">
-          <h2 className="text-4xl font-bold text-slate-500">Projects Coming Soon via Supabase...</h2>
-        </section>
       </main>
 
       {/* Background Glows */}
