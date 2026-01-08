@@ -1,5 +1,7 @@
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Projects from './components/Projects';
 
 function App() {
   return (
@@ -7,18 +9,13 @@ function App() {
       <CustomCursor/>
       <Navbar />
       
-      {/* Hero Section (Coming Soon) */}
-      <main className="pt-20">
-        <section className="h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-7xl font-black mb-4 tracking-tighter">
-              DESIGNING THE <br /> 
-              <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent italic">
-                DIGITAL FRONTIER
-              </span>
-            </h1>
-            <p className="text-slate-500 font-mono tracking-widest">ITUM UNDERGRADUATE | FULL-STACK DEVELOPER</p>
-          </div>
+    <main>
+        <Hero /> {/* Hero Section එක මෙතනට දාන්න */}
+        <Projects/>
+        
+        {/* අනෙක් Sections පසුවට... */}
+        <section id="projects" className="min-h-screen flex items-center justify-center border-t border-white/5">
+          <h2 className="text-4xl font-bold text-slate-500">Projects Coming Soon via Supabase...</h2>
         </section>
       </main>
 
