@@ -1,23 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  /* අපේ සයිට් එකේ ප්‍රධාන වර්ණ (Branding) */
-  --color-background: #020617; /* Deep Midnight */
-  --color-primary: #3b82f6;    /* Electric Blue */
-  --color-accent: #a855f7;     /* Purple Glow */
-  --color-surface: #1e293b;    /* Slate Gray */
-
+  /* අපේ සන්නාමයේ වර්ණ (Branding Colors) */
+  --color-dark-bg: #030712;      /* ඉතා තද අඳුරු වර්ණයක් */
+  --color-accent-blue: #3b82f6;  /* Electric Blue */
+  --color-accent-purple: #a855f7; /* Purple Glow */
+  --color-glass: rgba(255, 255, 255, 0.03); /* වීදුරු ආචරණය සඳහා */
+  
   --font-sans: 'Inter', system-ui, sans-serif;
 }
 
-/* Base Styles */
 @layer base {
   body {
-    @apply bg-background text-slate-200 antialiased selection:bg-primary/30;
+    @apply bg-dark-bg text-slate-300 antialiased selection:bg-accent-blue/30;
   }
   
-  /* Smooth Scrolling */
-  html {
-    scroll-behavior: smooth;
+  /* Scrollbar එක සයිට් එකට ගැලපෙන විදිහට හදමු */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #030712;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1f2937;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
   }
 }
