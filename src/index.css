@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  /* අපේ සයිට් එකේ ප්‍රධාන වර්ණ (Branding) */
+  --color-background: #020617; /* Deep Midnight */
+  --color-primary: #3b82f6;    /* Electric Blue */
+  --color-accent: #a855f7;     /* Purple Glow */
+  --color-surface: #1e293b;    /* Slate Gray */
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* Base Styles */
+@layer base {
+  body {
+    @apply bg-background text-slate-200 antialiased selection:bg-primary/30;
+  }
+  
+  /* Smooth Scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
