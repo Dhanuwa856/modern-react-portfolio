@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
 import About from './components/About';
-
+import Contact from './components/Contact';
 function App() {
   return (
     <div className="relative">
@@ -14,8 +14,10 @@ function App() {
         <Hero /> 
         <About/>
         <Projects/>
+        <Contact/>
         
       </main>
+      
 
       {/* Background Glows */}
       <div className="fixed top-0 left-0 -z-10 h-full w-full overflow-hidden">
