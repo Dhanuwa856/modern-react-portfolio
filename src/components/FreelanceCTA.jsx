@@ -78,7 +78,7 @@ const FreelanceCTA = () => {
           {/* Bottom Callout */}
           <div className="mt-16 pt-8 border-t border-white/5 text-center">
              <p className="text-[10px] text-slate-600 font-black uppercase tracking-[0.4em]">
-               Or simply drop an email to <span className="text-slate-400">dhanushka@email.com</span>
+               Or simply drop an email to <span className="text-slate-400">infoname259@gmail.com</span>
              </p>
           </div>
         </motion.div>

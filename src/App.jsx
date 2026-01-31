@@ -6,6 +6,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import AIRoadmap from './components/AIRoadmap';
 import FreelanceCTA from './components/FreelanceCTA';
+import Footer from './components/Footer';
 function App() {
   return (
     <div className="relative">
@@ -19,6 +20,7 @@ function App() {
         <Contact/>
         <AIRoadmap/>
         <FreelanceCTA/>
+        <Footer/>
         
       </main>
       

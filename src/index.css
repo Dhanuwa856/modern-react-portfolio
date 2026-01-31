@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* Navbar එක නිසා Section එකේ Title එක වැසීම වැලැක්වීමට (Offset) */
+:target {
+  scroll-margin-top: 100px;
+}
+
+/* මුළු සයිට් එකටම පොදු Scroll Padding එකක් දීම */
+html {
+  scroll-padding-top: 5rem; 
+}
+
 @theme {
   /* අපේ සන්නාමයේ වර්ණ (Branding Colors) */
   --color-dark-bg: #030712;      /* ඉතා තද අඳුරු වර්ණයක් */

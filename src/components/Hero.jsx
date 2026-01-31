@@ -93,9 +93,14 @@ const Hero = () => {
           </a>
 
           {/* Secondary Button */}
-          <button className="group px-8 py-3 w-full sm:w-auto rounded-full border border-white/10 bg-white/5 backdrop-blur-lg font-bold text-slate-300 flex items-center justify-center gap-2 hover:bg-white/10 hover:text-white transition-all hover:scale-105 active:scale-95">
-            Download CV <Download size={20} className="group-hover:translate-y-1 transition-transform"/>
-          </button>
+          <a 
+  href="/Dhanushka_CV.pdf" // public folder එකේ තියෙන file එකේ නම
+  download="Dhanushka_CV.pdf" // download වෙද්දී වැටිය යුතු නම
+  className="group px-8 py-3 w-full sm:w-auto rounded-full border border-white/10 bg-white/5 backdrop-blur-lg font-bold text-slate-300 flex items-center justify-center gap-2 hover:bg-white/10 hover:text-white transition-all hover:scale-105 active:scale-95 cursor-pointer text-center"
+>
+  Download CV 
+  <Download size={20} className="group-hover:translate-y-1 transition-transform"/>
+</a>
         </motion.div>
       </motion.div>
       

@@ -9,7 +9,7 @@ const Contact = () => {
   const [success, setSuccess] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const emailAddress = "dhanushka@email.com"; // ඔයාගේ Email එක මෙතනට දාන්න
+  const emailAddress = "infoname259@gmail.com"; 
 
   const copyEmail = () => {
     navigator.clipboard.writeText(emailAddress);
@@ -89,9 +89,9 @@ const Contact = () => {
               <p className="text-[10px] font-bold text-accent-purple uppercase tracking-[0.3em] mb-6">Digital Presence</p>
               <div className="flex flex-wrap gap-4">
                 {[
-                  { icon: <Github size={22} />, label: 'GitHub', link: '#' },
-                  { icon: <Linkedin size={22} />, label: 'LinkedIn', link: '#' },
-                  { icon: <MessageCircle size={22} />, label: 'Facebook', link: '#' }
+                  { icon: <Github size={22} />, label: 'GitHub', link: 'https://github.com/Dhanuwa856' },
+                  { icon: <Linkedin size={22} />, label: 'LinkedIn', link: 'https://www.linkedin.com/in/dhanushka-rathnayaka' },
+                  { icon: <MessageCircle size={22} />, label: 'Facebook', link: 'https://www.facebook.com/profile.php?id=61577681014893' }
                 ].map((social, i) => (
                   <a 
                     key={i} 
