@@ -30,19 +30,18 @@ const About = () => {
           </motion.div>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[240px]">
+        {/* Bento Grid - Mobile Optimized */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto md:auto-rows-[240px]">
           
-          {/* 1. My Photo Box */}
+          {/* 1. My Photo Box - Fixed Height for Mobile */}
           <motion.div 
             whileHover={{ scale: 0.98 }}
-            className="md:col-span-4 md:row-span-2 bg-white/5 border border-white/10 rounded-[2.5rem] overflow-hidden relative group"
+            className="md:col-span-4 md:row-span-2 h-[450px] md:h-full bg-white/5 border border-white/10 rounded-[2.5rem] overflow-hidden relative group order-1"
           >
-            {/* මෙතනට ඔයාගේ Photo එකේ Link එක දාන්න */}
             <img 
               src="https://gzafpxoufkzcndgtmhyh.supabase.co/storage/v1/object/public/portfolio-assets/Gemini_Generated_Image_4mnxkj4mnxkj4mnx.png" 
               alt="Dhanushka" 
-              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 object-top"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-transparent to-transparent opacity-60" />
             <div className="absolute bottom-8 left-8">
@@ -54,22 +53,22 @@ const About = () => {
           {/* 2. ITUM Box */}
           <motion.div 
             whileHover={{ y: -5 }}
-            className="md:col-span-8 bg-white/5 border border-white/10 rounded-[2.5rem] p-8 flex flex-col justify-between relative group"
+            className="md:col-span-8 h-auto min-h-[240px] bg-white/5 border border-white/10 rounded-[2.5rem] p-8 flex flex-col justify-between relative group order-2"
           >
             <GraduationCap size={100} className="absolute -right-4 -bottom-4 text-white/5 group-hover:text-accent-blue/10 transition-colors" />
             <div>
               <span className="text-accent-blue font-mono text-xs uppercase tracking-widest">Education</span>
-              <h3 className="text-3xl font-bold mt-2">IT Undergraduate at ITUM</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mt-2 leading-tight">IT Undergraduate at ITUM</h3>
             </div>
-            <p className="text-slate-400 max-w-lg z-10">
-              Focusing on Software Engineering at <span className="text-white">University of Moratuwa (ITUM)</span>. Passionate about building robust architectures.
+            <p className="text-slate-400 max-w-lg z-10 mt-4 text-sm md:text-base">
+              Focusing on Software Engineering at <span className="text-white font-semibold">University of Moratuwa (ITUM)</span>. Passionate about building robust architectures.
             </p>
           </motion.div>
 
           {/* 3. Skills with Icons */}
           <motion.div 
             whileHover={{ y: -5 }}
-            className="md:col-span-4 bg-white/5 border border-white/10 rounded-[2.5rem] p-8"
+            className="md:col-span-4 h-auto bg-white/5 border border-white/10 rounded-[2.5rem] p-8 order-4 md:order-3"
           >
             <h4 className="text-lg font-bold mb-6 italic text-slate-200">Tech Stack</h4>
             <div className="grid grid-cols-3 gap-6">
@@ -103,13 +102,13 @@ const About = () => {
           {/* 4. AI Pathway */}
           <motion.div 
             whileHover={{ y: -5 }}
-            className="md:col-span-4 bg-accent-purple/10 border border-accent-purple/20 rounded-[2.5rem] p-8 flex flex-col justify-between"
+            className="md:col-span-4 h-auto min-h-[240px] bg-accent-purple/10 border border-accent-purple/20 rounded-[2.5rem] p-8 flex flex-col justify-between order-3 md:order-4"
           >
             <BrainCircuit size={40} className="text-accent-purple" />
             <div>
               <h3 className="text-xl font-bold mb-2 italic underline underline-offset-4 decoration-accent-purple">AI Exploration</h3>
               <p className="text-sm text-slate-400">
-                Crafting intelligent solutions using <span className="text-white">Python</span>. Deep diving into LLMs and Automation.
+                Crafting intelligent solutions using <span className="text-white font-medium">Python</span>. Deep diving into LLMs and Automation.
               </p>
             </div>
           </motion.div>

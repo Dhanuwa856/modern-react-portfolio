@@ -4,6 +4,8 @@ import Hero from './components/Hero';
 import Projects from './components/Projects';
 import About from './components/About';
 import Contact from './components/Contact';
+import AIRoadmap from './components/AIRoadmap';
+import FreelanceCTA from './components/FreelanceCTA';
 function App() {
   return (
     <div className="relative">
@@ -15,6 +17,8 @@ function App() {
         <About/>
         <Projects/>
         <Contact/>
+        <AIRoadmap/>
+        <FreelanceCTA/>
         
       </main>
       
