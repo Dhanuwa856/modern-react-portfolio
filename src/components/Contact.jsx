@@ -1,12 +1,21 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../supabaseClient';
-import { Mail, Github, Linkedin, Send, MessageCircle } from 'lucide-react';
+import { Mail, Github, Linkedin, Send, MessageCircle, Copy, Check } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const emailAddress = "dhanushka@email.com"; // ඔයාගේ Email එක මෙතනට දාන්න
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText(emailAddress);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,92 +34,130 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-6 relative">
-      <div className="max-w-7xl mx-auto">
+    <section id="contact" className="py-24 px-6 relative overflow-hidden">
+      {/* Background Decorative Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent-blue/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         
-        {/* Header - Consistent with Works & About */}
-        <div className="mb-16">
-          <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <h2 className="text-5xl md:text-7xl font-black mb-4 tracking-tighter leading-none">
-              GET IN <br />
-              <span className="bg-gradient-to-r from-accent-blue via-slate-100 to-accent-purple bg-clip-text text-transparent italic">
-                TOUCH
+        {/* Header Section */}
+        <div className="mb-20">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="text-6xl md:text-8xl font-black mb-6 tracking-tighter leading-none">
+              READY TO <br />
+              <span className="bg-gradient-to-r from-accent-blue via-slate-200 to-accent-purple bg-clip-text text-transparent italic">
+                CONNECT?
               </span>
             </h2>
-            <div className="flex flex-col md:flex-row md:items-center gap-4 mt-6">
-               <div className="h-[2px] w-16 bg-accent-blue rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
-               <p className="text-slate-400 text-sm md:text-base font-medium max-w-md">
-                 Have a project in mind or just want to say hi? <span className="text-white">Let's build something great.</span>
+            <div className="flex items-center gap-6">
+               <div className="h-[1px] w-24 bg-gradient-to-r from-accent-blue to-transparent" />
+               <p className="text-slate-400 text-lg font-medium tracking-tight">
+                 Let's turn your <span className="text-white italic">vision</span> into digital reality.
                </p>
             </div>
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
-          {/* Contact Info & Socials */}
-          <div className="space-y-8">
-            <div className="bg-white/5 border border-white/10 p-8 rounded-[2.5rem]">
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-              <div className="space-y-6">
-                <a href="mailto:your-email@gmail.com" className="flex items-center gap-4 group">
-                  <div className="p-4 bg-accent-blue/10 rounded-2xl group-hover:bg-accent-blue group-hover:text-white transition-all">
-                    <Mail size={24} />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500 uppercase font-bold tracking-widest">Email Me</p>
-                    <p className="text-slate-200">dhanushka@email.com</p>
-                  </div>
-                </a>
-              </div>
-
-              {/* Social Links */}
-              <div className="mt-12">
-                <p className="text-xs text-slate-500 uppercase font-bold tracking-[0.3em] mb-6 text-center lg:text-left">FOLLOW MY JOURNEY</p>
-                <div className="flex gap-4 justify-center lg:justify-start">
-                  {[
-                    { icon: <Github />, link: 'https://github.com' },
-                    { icon: <Linkedin />, link: 'https://linkedin.com' },
-                    { icon: <MessageCircle />, link: 'https://facebook.com' } // FB Page එකට
-                  ].map((social, i) => (
-                    <a key={i} href={social.link} target="_blank" className="p-4 bg-white/5 border border-white/10 rounded-full hover:border-accent-blue hover:text-accent-blue transition-all">
-                      {social.icon}
-                    </a>
-                  ))}
+          {/* Left Side: Info Cards (Bento Style) */}
+          <div className="lg:col-span-5 space-y-6">
+            
+            {/* Email Card with Copy Feature */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-white/5 border border-white/10 p-8 rounded-[2rem] group relative overflow-hidden"
+            >
+              <div className="relative z-10">
+                <p className="text-[10px] font-bold text-accent-blue uppercase tracking-[0.3em] mb-4">Official Channel</p>
+                <h3 className="text-2xl font-bold text-white mb-6">Drop me a line</h3>
+                <div 
+                  onClick={copyEmail}
+                  className="flex items-center justify-between bg-black/20 border border-white/5 p-4 rounded-xl cursor-pointer hover:border-accent-blue/50 transition-all group/item"
+                >
+                  <span className="text-slate-300 font-medium truncate mr-4">{emailAddress}</span>
+                  {copied ? <Check size={18} className="text-green-500" /> : <Copy size={18} className="text-slate-500 group-hover/item:text-accent-blue" />}
                 </div>
               </div>
-            </div>
+            </motion.div>
+
+            {/* Social Connect Card */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-white/5 border border-white/10 p-8 rounded-[2rem]"
+            >
+              <p className="text-[10px] font-bold text-accent-purple uppercase tracking-[0.3em] mb-6">Digital Presence</p>
+              <div className="flex flex-wrap gap-4">
+                {[
+                  { icon: <Github size={22} />, label: 'GitHub', link: '#' },
+                  { icon: <Linkedin size={22} />, label: 'LinkedIn', link: '#' },
+                  { icon: <MessageCircle size={22} />, label: 'Facebook', link: '#' }
+                ].map((social, i) => (
+                  <a 
+                    key={i} 
+                    href={social.link} 
+                    target="_blank" 
+                    className="flex items-center gap-3 px-6 py-3 bg-white/5 rounded-full border border-white/5 hover:border-accent-blue/50 hover:bg-accent-blue/5 transition-all group"
+                  >
+                    <span className="text-slate-400 group-hover:text-accent-blue transition-colors">{social.icon}</span>
+                    <span className="text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">{social.label}</span>
+                  </a>
+                ))}
+              </div>
+            </motion.div>
           </div>
 
-          {/* Contact Form */}
-          <motion.form 
-            onSubmit={handleSubmit}
-            className="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] relative overflow-hidden"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-2">Name</label>
-                <input required type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent-blue transition-all" placeholder="John Doe" />
+          {/* Right Side: Professional Form */}
+          <div className="lg:col-span-7">
+            <form onSubmit={handleSubmit} className="bg-white/5 border border-white/10 p-10 rounded-[3rem] backdrop-blur-sm">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Your Name</label>
+                  <input 
+                    required 
+                    type="text" 
+                    value={formData.name} 
+                    onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:ring-2 focus:ring-accent-blue/20 focus:border-accent-blue transition-all placeholder:text-slate-700" 
+                    placeholder="E.g. Elon Musk" 
+                  />
+                </div>
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Email Address</label>
+                  <input 
+                    required 
+                    type="email" 
+                    value={formData.email} 
+                    onChange={(e) => setFormData({...formData, email: e.target.value})} 
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:ring-2 focus:ring-accent-blue/20 focus:border-accent-blue transition-all placeholder:text-slate-700" 
+                    placeholder="name@company.com" 
+                  />
+                </div>
               </div>
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-2">Email</label>
-                <input required type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent-blue transition-all" placeholder="john@example.com" />
-              </div>
-            </div>
-            <div className="space-y-2 mb-6">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-2">Subject</label>
-              <input type="text" value={formData.subject} onChange={(e) => setFormData({...formData, subject: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent-blue transition-all" placeholder="How can I help?" />
-            </div>
-            <div className="space-y-2 mb-8">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-2">Message</label>
-              <textarea required rows="4" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent-blue transition-all" placeholder="Tell me more about your project..."></textarea>
-            </div>
 
-            <button disabled={loading} className="w-full bg-accent-blue py-5 rounded-2xl font-bold flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 shadow-[0_0_20px_rgba(59,130,246,0.3)]">
-              {loading ? "SENDING..." : (success ? "MESSAGE SENT! ✓" : "SEND MESSAGE")}
-              {!loading && !success && <Send size={20} />}
-            </button>
-          </motion.form>
+              <div className="space-y-3 mb-8">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Message</label>
+                <textarea 
+                  required 
+                  rows="5" 
+                  value={formData.message} 
+                  onChange={(e) => setFormData({...formData, message: e.target.value})} 
+                  className="w-full bg-white/[0.03] border border-white/10 rounded-[1.5rem] px-6 py-4 focus:outline-none focus:ring-2 focus:ring-accent-blue/20 focus:border-accent-blue transition-all placeholder:text-slate-700 resize-none" 
+                  placeholder="Describe your project goals..."
+                ></textarea>
+              </div>
+
+              <button 
+                disabled={loading} 
+                className="group relative w-full bg-white text-black py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-sm overflow-hidden transition-all hover:bg-accent-blue hover:text-white disabled:opacity-50"
+              >
+                <span className="relative z-10 flex items-center justify-center gap-3">
+                  {loading ? "TRANSMITTING..." : (success ? "MISSION SUCCESSFUL ✓" : "SEND INQUIRY")}
+                  {!loading && !success && <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
+                </span>
+              </button>
+            </form>
+          </div>
 
         </div>
       </div>
