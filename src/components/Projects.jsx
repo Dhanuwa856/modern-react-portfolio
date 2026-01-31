@@ -127,7 +127,7 @@ const Projects = () => {
                   transition={{ duration: 0.3 }}
                   className="bg-white/5 border border-white/10 rounded-[2rem] overflow-hidden hover:border-accent-blue/50 transition-all group"
                 >
-                  {/* ... කලින් තිබූ Project Card එකේ ඇතුළත කෝඩ් එක මෙතනට දාන්න ... */}
+                 
                   {/* Project Image Section */}
 <div className="relative aspect-video overflow-hidden">
   <img 
@@ -222,7 +222,10 @@ const Projects = () => {
               {[...Array(totalPages)].map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrentPage(i + 1)}
+                  onClick={() => {
+                    setCurrentPage(i + 1);
+                    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                  }}
                   className={`w-10 h-10 rounded-full font-bold text-sm transition-all ${currentPage === i + 1 ? 'bg-accent-blue text-white' : 'bg-white/5 border border-white/10 text-slate-400 hover:bg-white/10'}`}
                 >
                   {i + 1}

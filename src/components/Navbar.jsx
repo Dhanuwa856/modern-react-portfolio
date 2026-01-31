@@ -55,13 +55,17 @@ const Navbar = () => {
                 {link.name}
               </a>
             ))}
-            <motion.button 
+            <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-accent-blue/10 text-accent-blue border border-accent-blue/20 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest"
+              href="https://wa.me/94760093002?text=Hi%20Dhanushka,%20I'm%20interested%20in%20discussing%20a%20project!"
+              target="_blank" 
+              rel="noreferrer"
+              
             >
               Let's Talk
-            </motion.button>
+            </motion.a>
           </div>
 
           {/* Mobile Menu Trigger */}
