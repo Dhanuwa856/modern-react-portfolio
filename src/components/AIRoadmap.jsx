@@ -12,14 +12,14 @@ const roadmapData = [
   {
     stage: "PHASE 2",
     title: "Data Handling & Visualization",
-    desc: "Currently diving into NumPy, Pandas, and EDA to understand how to manipulate and clean real-world data.",
+    desc: "NumPy, Pandas, and EDA to understand how to manipulate and clean real-world data.",
     status: "Completed",
     icon: <CheckCircle2 className="text-green-500" />
   },
   {
     stage: "PHASE 3 & 4",
     title: "Math & Machine Learning Core",
-    desc: "Upcoming: Linear Algebra, Calculus, and implementing ML algorithms like Regression and Decision Trees using Scikit-learn.",
+    desc: "Currently diving Linear Algebra, Calculus, and implementing ML algorithms like Regression and Decision Trees using Scikit-learn.",
     status: "In Progress",
         icon: <CircleDot className="text-accent-blue animate-ping" />
 
@@ -27,7 +27,7 @@ const roadmapData = [
   {
     stage: "PHASE 5 & 6",
     title: "Deep Learning & LLM Stack",
-    desc: "The future frontier: Neural Networks, Transformers, and building RAG systems with LangChain and HuggingFace.",
+    desc: "Upcoming : Neural Networks, Transformers, and building RAG systems with LangChain and HuggingFace.",
     status: "Upcoming",
     icon: <Sparkles className="text-accent-purple" />
   },

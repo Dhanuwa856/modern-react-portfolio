@@ -40,7 +40,7 @@ const FreelanceCTA = () => {
               
               {/* Upwork Card */}
               <motion.a 
-                href="ඔයාගේ_UPWORK_PROFILE_LINK" 
+                href="UPWORK_PROFILE_LINK" 
                 target="_blank"
                 whileHover={{ y: -5 }}
                 className="bg-[#14a800]/5 border border-[#14a800]/20 p-8 rounded-[2.5rem] flex flex-col justify-between group/card hover:bg-[#14a800]/10 transition-all"
@@ -57,7 +57,7 @@ const FreelanceCTA = () => {
 
               {/* Fiverr Card */}
               <motion.a 
-                href="ඔයාගේ_FIVERR_PROFILE_LINK" 
+                href="FIVERR_PROFILE_LINK" 
                 target="_blank"
                 whileHover={{ y: -5 }}
                 className="bg-[#1dbf73]/5 border border-[#1dbf73]/20 p-8 rounded-[2.5rem] flex flex-col justify-between group/card hover:bg-[#1dbf73]/10 transition-all"
