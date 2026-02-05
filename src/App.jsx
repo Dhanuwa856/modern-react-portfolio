@@ -8,6 +8,7 @@ import AIRoadmap from './components/AIRoadmap';
 import FreelanceCTA from './components/FreelanceCTA';
 import Footer from './components/Footer';
 import AIChatBot from './components/AIChatBot';
+import Education from './components/Education';
 function App() {
   return (
     <div className="relative">
@@ -17,6 +18,7 @@ function App() {
     <main>
         <Hero /> 
         <About/>
+        <Education/>
         <Projects/>
         <Contact/>
         <AIRoadmap/>

@@ -27,6 +27,7 @@ const Footer = () => {
           {/* Quick Navigation */}
           <nav className="flex flex-wrap justify-center gap-8 text-sm font-bold uppercase tracking-widest text-slate-400">
             <a href="#about" className="hover:text-white transition-colors">About</a>
+            <a href="#education" className="hover:text-white transition-colors">Education</a>
             <a href="#projects" className="hover:text-white transition-colors">Works</a>
             <a href="#roadmap" className="hover:text-white transition-colors">Roadmap</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>

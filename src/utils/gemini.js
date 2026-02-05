@@ -32,7 +32,7 @@ Dhanushka is currently mastering the following subjects in his first semester:
 - AI & Data Science: Python, NumPy, Pandas, Scikit-learn, Linear Algebra, Calculus.
 - Web Development: MERN Stack (MongoDB, Express, React, Node.js), Vite.
 - UI/UX: Tailwind CSS, Framer Motion, Glassmorphism.
-- Tools: Supabase, Git/GitHub, Docker, VS Code.
+- Tools: Supabase, Git/GitHub, VS Code, PyCharm.
 
 ## CORE PROJECTS
 1. NeuroMath: A Deep Learning engine built from scratch using pure NumPy.
