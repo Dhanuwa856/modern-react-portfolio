@@ -27,17 +27,28 @@ const getSessionId = () => {
   const bot3DImage = "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Robot.png";
 
   // --- 1. Supabase එකෙන් පරණ Chat එක Load කිරීම ---
-  const fetchChatHistory = async () => {
-    const { data, error } = await supabase
-      .from('chat_history')
-      .select('role, message')
-      .order('created_at', { ascending: true })
-      .limit(50);
+  // --- 1. Supabase එකෙන් පරණ Chat එක Load කිරීම (Fixed for Data Isolation) ---
+const fetchChatHistory = async () => {
+  const currentSessionId = getSessionId(); // මුලින්ම මේ යූසර්ගේ ID එක ගන්නවා
+  
+  const { data, error } = await supabase
+    .from('chat_history')
+    .select('role, message')
+    .eq('session_id', currentSessionId) // ✅ මෙන්න මෙතනින් තමයි මේ යූසර්ගේ ඒවා විතරක් Filter කරන්නේ
+    .order('created_at', { ascending: true })
+    .limit(50);
 
-    if (!error && data && data.length > 0) {
+  if (!error && data) {
+    // පළමු මැසේජ් එක (Hi! I'm Dhanushka's AI...) හැමවෙලේම තියෙන්න ඕනේ නම්:
+    const initialMsg = { role: 'bot', text: "Hi! I'm Dhanushka's AI. Want to talk about AI or check my projects?" };
+    
+    if (data.length > 0) {
       setMessages(data.map(m => ({ role: m.role, text: m.message })));
+    } else {
+      setMessages([initialMsg]);
     }
-  };
+  }
+};
 
   // --- 2. අලුත් මැසේජ් එකක් Supabase එකට Save කිරීම ---
   const saveToSupabase = async (role, text) => {
