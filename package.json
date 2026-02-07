@@ -10,10 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@google/generative-ai": "^0.24.1",
     "@huggingface/inference": "^4.13.5",
     "@supabase/supabase-js": "^2.90.0",
     "@tailwindcss/vite": "^4.1.18",
+    "canvas-confetti": "^1.9.4",
     "framer-motion": "^12.24.10",
     "lucide-react": "^0.562.0",
     "react": "^19.2.0",
