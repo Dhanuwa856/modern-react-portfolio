@@ -23,7 +23,7 @@ function App() {
         <Projects/>
         <Contact/>
         <AIRoadmap/>
-        <TechQuiz/>  # Only for testing, can be removed later
+        <TechQuiz/>  
         <FreelanceCTA/>
         <AIChatBot/>
         <Footer/>
