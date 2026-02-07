@@ -1,1 +1,8 @@
 ["Fundamentals of Programming (IT1106)","DBMS (IT1104)","Operating Systems (IT1107)","Digital Computers (IT1105)","Mathematics & Statistics (IS1104)","Applied Science for IT (IT1101)","GIS (IT1108)","Sports Studies (IS1205)","Business Applications in IT (IT1102)","English Language Skills Enhancement (IS1103)"]
+
+
+-- ලකුණු 80% (8/10) ට වඩා ගත් අයගෙන් 10 දෙනෙක් random තෝරා ගැනීම
+SELECT * FROM giveaway_entries 
+WHERE quiz_score >= 8 
+ORDER BY RANDOM() 
+LIMIT 10;
