@@ -23,7 +23,7 @@ function App() {
         <Projects/>
         <Contact/>
         <AIRoadmap/>
-        <TechQuiz/>  
+        <TechQuiz/>  {/* Only use quiz time  */}
         <FreelanceCTA/>
         <AIChatBot/>
         <Footer/>
