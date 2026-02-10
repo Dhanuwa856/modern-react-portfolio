@@ -9,7 +9,7 @@ import FreelanceCTA from './components/FreelanceCTA';
 import Footer from './components/Footer';
 import AIChatBot from './components/AIChatBot';
 import Education from './components/Education';
-import TechQuiz from './components/TechQuiz';
+// import TechQuiz from './components/TechQuiz';
 function App() {
   return (
     <div className="relative">
@@ -23,7 +23,7 @@ function App() {
         <Projects/>
         <Contact/>
         <AIRoadmap/>
-        <TechQuiz/>  {/* Only use quiz time  */}
+        {/* <TechQuiz/>  Only use quiz time  */}
         <FreelanceCTA/>
         <AIChatBot/>
         <Footer/>
