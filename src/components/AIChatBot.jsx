@@ -143,7 +143,7 @@ const fetchChatHistory = async () => {
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
-            className="mb-4 w-[calc(100vw-2.5rem)] sm:w-[360px] h-[70vh] max-h-[550px] bg-[#0c0c0e]/95 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden ring-1 ring-white/10"
+            className="mb-4 w-[calc(100vw-2.5rem)] sm:w-[360px] h-[70vh] max-h-[550px] bg-[#0c0c0e]/5 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden ring-1 ring-white/10"
           >
             {/* Header */}
             <div className="p-4 bg-white/5 border-b border-white/5 flex justify-between items-center">
