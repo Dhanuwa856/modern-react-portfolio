@@ -48,7 +48,7 @@ const Certificates = () => {
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    className="mb-16 text-center md:text-left"
+                    className="mb-16 text-left"
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4">
                         <ShieldCheck className="w-3 h-3 text-accent-purple" />
@@ -145,7 +145,7 @@ const Certificates = () => {
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="relative max-w-5xl w-full bg-white/5 border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl"
+                            className="relative max-w-5xl w-full bg-blue-950/20 border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button 
