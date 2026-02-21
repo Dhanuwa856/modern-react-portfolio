@@ -29,6 +29,7 @@ const MainPortfolio = () => (
     <Projects />
     <Contact />
     <AIRoadmap />
+    <TechQuiz/>
     <FreelanceCTA />
   </motion.div>
 );

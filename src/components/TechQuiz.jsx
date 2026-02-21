@@ -132,7 +132,7 @@ const TechQuiz = () => {
   };
 
   return (
-    <section id="quiz" className="py-24 px-4 md:px-6 relative overflow-hidden bg-[#050505]">
+    <section id="quiz" className="py-24 px-4 md:px-6 relative overflow-hidden">
       
       {/* 🎊 Scrolling Announcement Banner */}
       <div className="absolute top-0 left-0 w-full bg-accent-purple/90 backdrop-blur-md py-2 overflow-hidden flex whitespace-nowrap z-50 border-b border-white/10">
@@ -145,8 +145,8 @@ const TechQuiz = () => {
           <span className="text-white/50">|</span>
           <span>🔥 Score 80%+ to enter the draw</span>
           <span className="text-white/50">|</span>
-          <span className="flex items-center gap-2"><Sparkles size={12}/> Winners Announced: Feb 10th @ 10 PM</span>
-          <span className="text-white/50">|</span>
+          {/* <span className="flex items-center gap-2"><Sparkles size={12}/> Winners Announced: Feb 10th @ 10 PM</span> */}
+          {/* <span className="text-white/50">|</span> */}
           <span className="flex items-center gap-2"><Gift size={12}/> 10 LinkedIn Premium Coupons Giveaway</span>
         </motion.div>
       </div>
@@ -309,8 +309,7 @@ const TechQuiz = () => {
                                 {[
                                   "Exclusively for members who have NOT used a trial in the last 12 months.",
                                   "Existing Premium members are not eligible for this voucher.",
-                                  "10 Winners will be selected randomly on Feb 10th at 10:00 PM.",
-                                  "Trial lasts for 2 months; standard rates apply thereafter unless canceled."
+                                                                    "Trial lasts for 2 months; standard rates apply thereafter unless canceled."
                                 ].map((rule, i) => (
                                   <li key={i} className="flex items-start gap-3 text-[10px] text-slate-400 leading-relaxed">
                                     <div className="mt-1.5 w-1 h-1 rounded-full bg-accent-purple shrink-0" />
@@ -329,9 +328,9 @@ const TechQuiz = () => {
                               <CheckCircle2 className="text-green-400" size={40}/>
                             </div>
                             <h4 className="text-white font-black text-3xl uppercase tracking-tighter">BATTLE WON!</h4>
-                            <p className="text-slate-400 text-sm mt-3 max-w-xs mx-auto">
+                            {/* <p className="text-slate-400 text-sm mt-3 max-w-xs mx-auto">
                               Your entry is locked in. Winners will be notified on <span className="text-white font-bold">Feb 10th @ 22:00</span> via email.
-                            </p>
+                            </p> */}
                           </div>
                         )}
                       </motion.div>
