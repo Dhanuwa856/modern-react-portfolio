@@ -62,7 +62,7 @@ const Contact = () => {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-20">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="text-6xl md:text-8xl font-black mb-6 tracking-tighter leading-none text-white uppercase">
+            <h2 className="text-6xl md:text-7xl font-black mb-6 tracking-tighter leading-none text-white uppercase">
               READY TO <br />
               <span className="bg-gradient-to-r from-accent-blue via-slate-200 to-accent-purple bg-clip-text text-transparent italic">
                 CONNECT?

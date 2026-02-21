@@ -20,7 +20,7 @@ const Education = () => {
 
   return (
     <section id="education" className="py-20 px-6">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         
         {/* --- ඔයා ඉල්ලපු ලස්සන Title Design එක --- */}
         <div className="mb-16">

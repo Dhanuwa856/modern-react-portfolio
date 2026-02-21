@@ -13,6 +13,7 @@ import AIChatBot from './components/AIChatBot';
 import Education from './components/Education';
 import TechQuiz from './components/TechQuiz';
 import NotFound from './components/NotFound'; // අපි කලින් හදපු 404 Page එක
+import Certificates from './components/Certificates';
 
 // --- ප්‍රධාන පෝර්ට්ෆෝලියෝ කොටස (Landing Page) ---
 const MainPortfolio = () => (
@@ -24,6 +25,7 @@ const MainPortfolio = () => (
     <Hero /> 
     <About />
     <Education />
+    <Certificates/>
     <Projects />
     <Contact />
     <AIRoadmap />
