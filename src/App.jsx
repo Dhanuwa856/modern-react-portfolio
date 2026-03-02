@@ -14,9 +14,30 @@ import Education from './components/Education';
 import TechQuiz from './components/TechQuiz';
 import NotFound from './components/NotFound'; // අපි කලින් හදපු 404 Page එක
 import Certificates from './components/Certificates';
+import { Helmet } from 'react-helmet-async';
 
 // --- ප්‍රධාන පෝර්ට්ෆෝලියෝ කොටස (Landing Page) ---
 const MainPortfolio = () => (
+  <>
+  <Helmet>
+      {/* Google සර්ච් එකේ පේන Title එක (අකුරු 60 ට අඩුයි) */}
+      <title>Dhanushka | AI Engineer & Python Developer Sri Lanka</title>
+      
+      {/* සර්ච් එකේ පල්ලෙහායින් පේන විස්තරය (අකුරු 160 ට අඩුයි) */}
+      <meta name="description" content="Portfolio of Dhanushka, an IT student at ITUM specializing in AI Engineering, Python, and MERN stack. Explore projects like Neural-Math-Engine and Knowledge Battleground." />
+      
+      {/* Keywords - Google දැන් මේක වැඩිය බලන්නේ නැති වුණත් වෙනත් සර්ච් එන්ජින් වලට වැදගත් */}
+      <meta name="keywords" content="Dhanushka, AI Engineer Sri Lanka, ITUM student, Python Developer, Machine Learning, MERN Stack, Neural-Math-Engine, Knowledge Battleground" />
+      
+      {/* Social Media වල ලින්ක් එක ශෙයාර් කරද්දී පේන විදිහ (Open Graph) */}
+      <meta property="og:title" content="Dhanushka | AI Engineer Portfolio" />
+      <meta property="og:description" content="Building intelligent solutions with Python and React. Check out my latest AI and Web projects." />
+      <meta property="og:url" content="https://www.dhanushka.live" />
+      <meta property="og:type" content="website" />
+      
+      {/* Google Bot එකට සයිට් එක index කරන්න අවසර දීම */}
+      <link rel="canonical" href="https://www.dhanushka.live" />
+    </Helmet>
   <motion.div
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
@@ -32,6 +53,7 @@ const MainPortfolio = () => (
     <TechQuiz/>
     <FreelanceCTA />
   </motion.div>
+  </>
 );
 
 function App() {
