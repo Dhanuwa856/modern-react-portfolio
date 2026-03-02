@@ -309,7 +309,7 @@ const TechQuiz = () => {
                                 {[
                                   "Exclusively for members who have NOT used a trial in the last 12 months.",
                                   "Existing Premium members are not eligible for this voucher.",
-                                                                    "Trial lasts for 2 months; standard rates apply thereafter unless canceled."
+                                  "Trial lasts for 2 months; standard rates apply thereafter unless canceled."
                                 ].map((rule, i) => (
                                   <li key={i} className="flex items-start gap-3 text-[10px] text-slate-400 leading-relaxed">
                                     <div className="mt-1.5 w-1 h-1 rounded-full bg-accent-purple shrink-0" />

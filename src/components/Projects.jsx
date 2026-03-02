@@ -15,96 +15,94 @@ const Projects = () => {
 
   useEffect(() => {
     fetchProjects();
-  }, [filter, currentPage, projectsPerPage]); // filter හෝ page එක වෙනස් වන විට දත්ත නැවත ලබා ගනී
+  }, [filter, currentPage, projectsPerPage]);
 
   useEffect(() => {
-  // Screen size එක බලලා පෙන්වන ප්‍රමාණය තීරණය කිරීම
-  const updateCount = () => {
-    if (window.innerWidth < 768) {
-      setProjectsPerPage(3); // Mobile වලට 3ක් ඇති
-    } else {
-      setProjectsPerPage(6); // Desktop වලට 6ක්
+    // Screen size එක බලලා පෙන්වන ප්‍රමාණය තීරණය කිරීම
+    const updateCount = () => {
+      if (window.innerWidth < 768) {
+        setProjectsPerPage(3); // Mobile වලට 3ක් ඇති
+      } else {
+        setProjectsPerPage(6); // Desktop වලට 6ක්
+      }
+    };
+
+    updateCount();
+    window.addEventListener('resize', updateCount);
+    return () => window.removeEventListener('resize', updateCount);
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      setLoading(true);
+      const from = (currentPage - 1) * projectsPerPage;
+      const to = from + projectsPerPage - 1;
+
+      let query = supabase
+        .from('projects')
+        .select('*', { count: 'exact' })
+        .order('id', { ascending: false })
+        .range(from, to);
+
+      if (filter !== 'All') {
+        query = query.eq('category', filter);
+      }
+
+      const { data, error, count } = await query;
+      if (error) throw error;
+      setProjects(data || []);
+      setTotalCount(count || 0);
+    } catch (error) {
+      console.error('Error:', error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  updateCount();
-  window.addEventListener('resize', updateCount);
-  return () => window.removeEventListener('resize', updateCount);
-}, []);
-
- const fetchProjects = async () => {
-  try {
-    setLoading(true);
-    // Dynamic projectsPerPage පාවිච්චි කිරීම
-    const from = (currentPage - 1) * projectsPerPage;
-    const to = from + projectsPerPage - 1;
-
-    let query = supabase
-      .from('projects')
-      .select('*', { count: 'exact' })
-      .order('id', { ascending: false })
-      .range(from, to);
-
-    if (filter !== 'All') {
-      query = query.eq('category', filter);
-    }
-
-    const { data, error, count } = await query;
-    if (error) throw error;
-    setProjects(data || []);
-    setTotalCount(count || 0);
-  } catch (error) {
-    console.error('Error:', error.message);
-  } finally {
-    setLoading(false);
-  }
-};
   const totalPages = Math.ceil(totalCount / projectsPerPage);
 
   return (
     <section id="projects" className="py-24 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-        <div className="mb-16">
-  <motion.div
-    initial={{ opacity: 0, x: -20 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6 }}
-  >
-    {/* Main Title with Gradient */}
-    <h2 className="text-5xl md:text-7xl font-black mb-4 tracking-tighter leading-none">
-      SELECTED <br />
-      <span className="bg-gradient-to-r from-accent-blue via-slate-100 to-accent-purple bg-clip-text text-transparent italic">
-        WORKS
-      </span>
-    </h2>
+          <div className="mb-16">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              {/* Main Title with Gradient */}
+              <h2 className="text-5xl md:text-7xl font-black mb-4 tracking-tighter leading-none">
+                SELECTED <br />
+                <span className="bg-gradient-to-r from-accent-blue via-slate-100 to-accent-purple bg-clip-text text-transparent italic">
+                  WORKS
+                </span>
+              </h2>
 
-    {/* Decorative Line & Subtitle */}
-    <div className="flex flex-col md:flex-row md:items-center gap-4 mt-6">
-       <div className="h-[2px] w-16 bg-accent-blue rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
-       <p className="text-slate-400 text-sm md:text-base font-medium max-w-md leading-relaxed">
-         A curation of digital experiences, where <span className="text-white">Clean Code</span> meets <span className="text-accent-blue">Intelligent Design</span>.
-       </p>
-    </div>
+              {/* Decorative Line & Subtitle */}
+              <div className="flex flex-col md:flex-row md:items-center gap-4 mt-6">
+                <div className="h-[2px] w-16 bg-accent-blue rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                <p className="text-slate-400 text-sm md:text-base font-medium max-w-md leading-relaxed">
+                  A curation of digital experiences, where <span className="text-white">Clean Code</span> meets <span className="text-accent-blue">Intelligent Design</span>.
+                </p>
+              </div>
 
-    {/* Optional: Tech Tagline */}
-    <div className="mt-4 flex items-center gap-2">
-       <span className="text-[10px] font-mono text-slate-600 uppercase tracking-[0.4em]">
-         Web Development • Artificial Intelligence • UI/UX
-       </span>
-    </div>
-  </motion.div>
-</div>
+              {/* Optional: Tech Tagline */}
+              <div className="mt-4 flex items-center gap-2">
+                <span className="text-[10px] font-mono text-slate-600 uppercase tracking-[0.4em]">
+                  Web Development • Artificial Intelligence • UI/UX
+                </span>
+              </div>
+            </motion.div>
+          </div>
 
           {/* Filter Bar */}
           <div className="flex gap-2 bg-white/5 p-1 rounded-full border border-white/10">
             {categories.map((cat) => (
               <button
                 key={cat}
-                
                 onClick={() => { setFilter(cat); setCurrentPage(1); }}
-                
                 className={`px-6 py-2 rounded-full text-xs font-bold transition-all ${filter === cat ? 'bg-accent-blue text-white shadow-lg' : 'hover:bg-white/5 text-slate-400'}`}
               >
                 {cat}
@@ -127,75 +125,75 @@ const Projects = () => {
                   transition={{ duration: 0.3 }}
                   className="bg-white/5 border border-white/10 rounded-[2rem] overflow-hidden hover:border-accent-blue/50 transition-all group"
                 >
-                 
+                  
                   {/* Project Image Section */}
-<div className="relative aspect-video overflow-hidden">
-  <img 
-    src={project.image_url || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000'} 
-    alt={project.title}
-    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-  />
-  
-  {/* Hover Overlay with Links */}
-  <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/90 via-dark-bg/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-    <div className="flex gap-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-      <a 
-        href={project.github_url} 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="p-3 bg-white/10 backdrop-blur-md rounded-full hover:bg-accent-blue hover:text-white transition-all border border-white/10"
-        title="View Code"
-      >
-        <Github size={20}/>
-      </a>
-      {project.live_url && (
-        <a 
-          href={project.live_url} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="p-3 bg-white/10 backdrop-blur-md rounded-full hover:bg-accent-blue hover:text-white transition-all border border-white/10"
-          title="Live Demo"
-        >
-          <ExternalLink size={20}/>
-        </a>
-      )}
-    </div>
-  </div>
-</div>
+                  <div className="relative aspect-video overflow-hidden">
+                    <img 
+                      src={project.image_url || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000'} 
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    
+                    {/* Hover Overlay with Links (Bug Fixed for Mobile) */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/90 via-dark-bg/40 to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                      <div className="flex gap-4 transform translate-y-0 md:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <a 
+                          href={project.github_url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="p-3 bg-white/10 backdrop-blur-md rounded-full hover:bg-accent-blue hover:text-white transition-all border border-white/10"
+                          title="View Code"
+                        >
+                          <Github size={20}/>
+                        </a>
+                        {project.live_url && (
+                          <a 
+                            href={project.live_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="p-3 bg-white/10 backdrop-blur-md rounded-full hover:bg-accent-blue hover:text-white transition-all border border-white/10"
+                            title="Live Demo"
+                          >
+                            <ExternalLink size={20}/>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
 
-{/* Project Details Section */}
-<div className="p-6">
-  {/* Tech Stack Badges (Safe Mapping) */}
-  <div className="flex flex-wrap gap-2 mb-4">
-    {Array.isArray(project.tech_stack) ? (
-      project.tech_stack.map((tech) => (
-        <span key={tech} className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 bg-accent-blue/10 text-accent-blue rounded-full border border-accent-blue/20">
-          {tech}
-        </span>
-      ))
-    ) : (
-      <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 bg-accent-blue/10 text-accent-blue rounded-full border border-accent-blue/20">
-        {project.tech_stack || 'Code'}
-      </span>
-    )}
-  </div>
+                  {/* Project Details Section */}
+                  <div className="p-6">
+                    {/* Tech Stack Badges (Safe Mapping) */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {Array.isArray(project.tech_stack) ? (
+                        project.tech_stack.map((tech) => (
+                          <span key={tech} className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 bg-accent-blue/10 text-accent-blue rounded-full border border-accent-blue/20">
+                            {tech}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 bg-accent-blue/10 text-accent-blue rounded-full border border-accent-blue/20">
+                          {project.tech_stack || 'Code'}
+                        </span>
+                      )}
+                    </div>
 
-  <h3 className="text-xl font-bold mb-2 group-hover:text-accent-blue transition-colors duration-300">
-    {project.title}
-  </h3>
-  
-  <p className="text-slate-400 text-sm leading-relaxed line-clamp-2 group-hover:text-slate-300 transition-colors">
-    {project.description}
-  </p>
+                    <h3 className="text-xl font-bold mb-2 group-hover:text-accent-blue transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    
+                    <p className="text-slate-400 text-sm leading-relaxed line-clamp-2 group-hover:text-slate-300 transition-colors">
+                      {project.description}
+                    </p>
 
-  {/* Category Tag (Optional - For visual clarity) */}
-  <div className="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
-    <span className="text-[10px] font-mono text-slate-500 uppercase tracking-tighter">
-      Category: {project.category}
-    </span>
-    <div className="h-1 w-1 rounded-full bg-accent-blue shadow-[0_0_5px_rgba(59,130,246,1)]" />
-  </div>
-</div>
+                    {/* Category Tag */}
+                    <div className="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
+                      <span className="text-[10px] font-mono text-slate-500 uppercase tracking-tighter">
+                        Category: {project.category}
+                      </span>
+                      <div className="h-1 w-1 rounded-full bg-accent-blue shadow-[0_0_5px_rgba(59,130,246,1)]" />
+                    </div>
+                  </div>
                   
                 </motion.div>
               ))
