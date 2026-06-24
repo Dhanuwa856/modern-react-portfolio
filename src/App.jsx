@@ -12,14 +12,18 @@ import Footer from './components/Footer';
 import AIChatBot from './components/AIChatBot';
 import Education from './components/Education';
 import TechQuiz from './components/TechQuiz';
-import NotFound from './components/NotFound'; // අපි කලින් හදපු 404 Page එක
+import NotFound from './components/NotFound';
 import Certificates from './components/Certificates';
 import { Helmet } from 'react-helmet-async';
+import Blog from './components/Blog';
+import BlogPost from './components/BlogPost';
+// import PythonVisualizer from './components/PythonVisualizer';
+// import PythonLearningHub from './components/PythonLearningHub';
 
 // --- ප්‍රධාන පෝර්ට්ෆෝලියෝ කොටස (Landing Page) ---
 const MainPortfolio = () => (
   <>
-  <Helmet>
+    <Helmet>
       {/* Google සර්ච් එකේ පේන Title එක (අකුරු 60 ට අඩුයි) */}
       <title>Dhanushka | AI Engineer & Python Developer Sri Lanka</title>
       
@@ -38,28 +42,31 @@ const MainPortfolio = () => (
       {/* Google Bot එකට සයිට් එක index කරන්න අවසර දීම */}
       <link rel="canonical" href="https://www.dhanushka.live" />
     </Helmet>
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.5 }}
-  >
-    <Hero /> 
-    <About />
-    <Education />
-    <Certificates/>
-    <Projects />
-    <Contact />
-    <AIRoadmap />
-    <TechQuiz/>
-    <FreelanceCTA />
-  </motion.div>
+
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Hero /> 
+      <About />
+      <Education />
+      <Certificates />
+      <Projects />
+      <Contact />
+      <AIRoadmap />
+      <TechQuiz/>
+      {/* <PythonVisualizer/> */}
+      {/* <PythonLearningHub/> */}
+      <FreelanceCTA />
+    </motion.div>
   </>
 );
 
 function App() {
   return (
     <Router>
-      <div className="relative  min-h-screen selection:bg-accent-purple/30">
+      <div className="relative min-h-screen selection:bg-accent-purple/30">
         <CustomCursor />
         
         {/* Navbar එක හැම page එකකම උඩින් පේනවා */}
@@ -70,7 +77,11 @@ function App() {
             {/* මුල් පිටුව (Home) */}
             <Route path="/" element={<MainPortfolio />} />
             
-            {/* Tech Quiz / Battleground පිටුව - /quiz ලෙස browser එකේ ගැසූ විට ලැබේ */}
+            {/* Blog පිටු සඳහා Routes */}
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            
+            {/* Tech Quiz / Battleground පිටුව */}
             <Route path="/quiz" element={<TechQuiz />} />
             
             {/* වැරදි URL එකක් ආවොත් පෙන්වන 404 Page එක */}
