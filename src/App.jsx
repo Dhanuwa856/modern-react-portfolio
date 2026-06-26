@@ -19,6 +19,7 @@ import Blog from './components/Blog';
 import BlogPost from './components/BlogPost';
 // import PythonVisualizer from './components/PythonVisualizer';
 // import PythonLearningHub from './components/PythonLearningHub';
+// import { Analytics } from "@vercel/analytics/next"
 
 // --- ප්‍රධාන පෝර්ට්ෆෝලියෝ කොටස (Landing Page) ---
 const MainPortfolio = () => (
@@ -49,6 +50,7 @@ const MainPortfolio = () => (
       transition={{ duration: 0.5 }}
     >
       <Hero /> 
+      {/* <Analytics/> */}
       <About />
       <Education />
       <Certificates />

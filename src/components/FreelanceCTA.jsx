@@ -40,7 +40,7 @@ const FreelanceCTA = () => {
               
               {/* Upwork Card */}
               <motion.a 
-                href="UPWORK_PROFILE_LINK" 
+                href="https://www.upwork.com/freelancers/~01386d08f6baa0d69c" 
                 target="_blank"
                 whileHover={{ y: -5 }}
                 className="bg-[#14a800]/5 border border-[#14a800]/20 p-8 rounded-[2.5rem] flex flex-col justify-between group/card hover:bg-[#14a800]/10 transition-all"
