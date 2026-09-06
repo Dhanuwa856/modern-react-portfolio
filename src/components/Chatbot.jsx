@@ -1,11 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, Send, X } from 'lucide-react';
-// 1. Library එක Import කරමු
-import { HfInference } from "@huggingface/inference";
-
-// 2. Client එක Initialize කරමු (Token එක මෙතනට යනවා)
-const hf = new HfInference(import.meta.env.VITE_HF_TOKEN);
+// gemini.js එක import කරගන්න (path එක නිවැරදිව දෙන්න)
+import { getAIChatResponse } from '../utils/gemini';
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,8 +12,6 @@ const Chatbot = () => {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef(null);
-
-  const DHANUSHKA_BIO = "You are Dhanushka's AI assistant. Dhanushka is an IT student at ITUM, loves Python and AI. Be helpful.";
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -32,24 +27,14 @@ const Chatbot = () => {
     setIsTyping(true);
 
     try {
-      // 3. Library එක හරහා AI එකට කතා කිරීම (Fetch වෙනුවට)
-      const response = await hf.textGeneration({
-        model: "mistralai/Mistral-7B-Instruct-v0.2",
-        inputs: `<s>[INST] ${DHANUSHKA_BIO} \n User Question: ${currentInput} [/INST]`,
-        parameters: {
-          max_new_tokens: 200,
-          temperature: 0.7,
-        },
-      });
-
-      const botResponse = response.generated_text.split('[/INST]')[1] || "I am thinking... ask me again!";
+      // gemini.js හරහා Groq API එකට කතා කිරීම
+      const botResponse = await getAIChatResponse(currentInput);
       setMessages(prev => [...prev, { role: 'assistant', content: botResponse.trim() }]);
-
     } catch (error) {
-      console.error("HF Error:", error);
+      console.error("Chat Error:", error);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: "I'm having a connection issue. Please check your Token or Internet!" 
+        content: "I'm having a bit of a brain freeze. Can you try again?" 
       }]);
     } finally {
       setIsTyping(false);
@@ -57,8 +42,8 @@ const Chatbot = () => {
   };
 
   return (
-    // ... (ඔයාගේ කලින් තිබුණු UI කෝඩ් එක මෙතනට දාන්න - වෙනසක් නැත) ...
-    <div className="fixed bottom-6 right-6 z-[1000]">
+    // ... (ඔයාගේ UI කෝඩ් එක වෙනසක් නැහැ, ඒ විදිහටම තියන්න) ...
+     <div className="fixed bottom-6 right-6 z-[1000]">
      <div className="fixed bottom-6 right-6 z-[1000]">
       <AnimatePresence>
         {isOpen && (
@@ -81,8 +66,7 @@ const Chatbot = () => {
             <div className="flex-1 overflow-y-auto p-4 space-y-4 scroll-smooth">
               {messages.map((m, i) => (
                 <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${m.role === 'user' ? 'bg-accent-blue text-white rounded-tr-none' : 'bg-white/5 border border-white/10 text-slate-300 rounded-tl-none'}`}>
-                    {m.content}
+<div className={`max-w-[80%] p-3 rounded-2xl text-sm whitespace-pre-wrap leading-relaxed ${m.role === 'user' ? 'bg-accent-blue text-white rounded-tr-none' : 'bg-white/5 border border-white/10 text-slate-300 rounded-tl-none'}`}>                    {m.content}
                   </div>
                 </div>
               ))}
