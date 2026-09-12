@@ -38,6 +38,10 @@ const fetchChatHistory = async () => {
     .order('created_at', { ascending: true })
     .limit(50);
 
+
+    
+
+
   if (!error && data) {
     // පළමු මැසේජ් එක (Hi! I'm Dhanushka's AI...) හැමවෙලේම තියෙන්න ඕනේ නම්:
     const initialMsg = { role: 'bot', text: "Hi! I'm Dhanushka's AI. Want to talk about AI or check my projects?" };
