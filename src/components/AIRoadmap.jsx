@@ -19,22 +19,21 @@ const roadmapData = [
   {
     stage: "PHASE 3 & 4",
     title: "Math & Machine Learning Core",
-    desc: "Currently diving Linear Algebra, Calculus, and implementing ML algorithms like Regression and Decision Trees using Scikit-learn.",
-    status: "In Progress",
-        icon: <CircleDot className="text-accent-blue animate-ping" />
-
+    desc: "Linear Algebra, Calculus, and implementing ML algorithms like Regression and Decision Trees using Scikit-learn.",
+    status: "Completed",
+    icon: <CheckCircle2 className="text-green-500" />
   },
   {
     stage: "PHASE 5 & 6",
     title: "Deep Learning & LLM Stack",
-    desc: "Upcoming : Neural Networks, Transformers, and building RAG systems with LangChain and HuggingFace.",
-    status: "Upcoming",
-    icon: <Sparkles className="text-accent-purple" />
+    desc: "Currently diving into Neural Networks, Transformers, and building RAG systems with LangChain and HuggingFace.",
+    status: "In Progress",
+    icon: <CircleDot className="text-accent-blue animate-ping" />
   },
   {
     stage: "PHASE 7 & 8",
     title: "Computer Vision & MLOps",
-    desc: "Learning Image processing with OpenCV and deploying AI models using Docker and AWS/GCP.",
+    desc: "Upcoming: Learning Image processing with OpenCV and deploying AI models using Docker and AWS/GCP.",
     status: "Upcoming",
     icon: <Terminal className="text-slate-500" />
   },
