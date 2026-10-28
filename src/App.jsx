@@ -1,10 +1,10 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Analytics } from '@vercel/analytics/react';
 
 import CustomCursor from './components/CustomCursor';
-import ThreeBackground from './components/ThreeBackground';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -17,10 +17,12 @@ import TechQuiz from './components/TechQuiz';
 import Contact from './components/Contact';
 import FreelanceCTA from './components/FreelanceCTA';
 import Footer from './components/Footer';
-import AIChatBot from './components/AIChatBot';
 import NotFound from './components/NotFound';
 import Blog from './components/Blog';
 import BlogPost from './components/BlogPost';
+
+const ThreeBackground = lazy(() => import('./components/ThreeBackground'));
+const AIChatBot = lazy(() => import('./components/AIChatBot'));
 
 const MainPortfolio = () => (
   <>
@@ -68,7 +70,9 @@ function App() {
     <Router>
       <div className="relative min-h-screen selection:bg-accent-blue/30">
         <CustomCursor />
-        <ThreeBackground />
+        <Suspense fallback={null}>
+          <ThreeBackground />
+        </Suspense>
         <Navbar />
 
         <main className="relative z-10">
@@ -81,7 +85,9 @@ function App() {
           </Routes>
         </main>
 
-        <AIChatBot />
+        <Suspense fallback={null}>
+          <AIChatBot />
+        </Suspense>
         <Footer />
         <Analytics />
 

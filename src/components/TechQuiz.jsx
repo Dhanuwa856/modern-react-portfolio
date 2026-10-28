@@ -132,7 +132,7 @@ const TechQuiz = () => {
   };
 
   return (
-    <section id="quiz" className="py-24 px-4 md:px-6 relative overflow-hidden">
+    <section id="quiz" className="py-16 sm:py-24 px-4 md:px-6 relative overflow-hidden">
       
       {/* 🎊 Scrolling Announcement Banner */}
       <div className="absolute top-0 left-0 w-full bg-accent-purple/90 backdrop-blur-md py-2 overflow-hidden flex whitespace-nowrap z-50 border-b border-white/10">
@@ -166,7 +166,7 @@ const TechQuiz = () => {
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-white">Interactive Learning</span>
             </div>
 
-            <h2 className="text-5xl md:text-7xl font-black mb-4 tracking-tighter leading-none text-white uppercase">
+            <h2 className="text-[clamp(2.5rem,12vw,4.5rem)] font-black mb-4 tracking-tighter leading-[0.92] text-white uppercase text-balance">
               KNOWLEDGE <br />
               <span className="bg-gradient-to-r from-accent-purple via-slate-100 to-accent-blue bg-clip-text text-transparent italic">
                 BATTLEGROUND
@@ -184,7 +184,7 @@ const TechQuiz = () => {
         </div>
 
         {/* --- Main Quiz Console --- */}
-        <div className="bg-gradient-to-br from-white/5 via-white/5 to-transparent backdrop-blur-2xl border border-white/10 rounded-[3rem] overflow-hidden shadow-2xl">
+        <div className="bg-gradient-to-br from-white/5 via-white/5 to-transparent backdrop-blur-2xl border border-white/10 rounded-[1.75rem] sm:rounded-[3rem] overflow-hidden shadow-2xl">
           
           {/* Category Tabs */}
           <div className="p-6 md:p-8 border-b border-white/10 bg-white/[0.02]">
@@ -200,7 +200,7 @@ const TechQuiz = () => {
             </div>
           </div>
 
-          <div className="p-8 md:p-12 min-h-[500px] flex items-center justify-center">
+          <div className="p-5 sm:p-8 md:p-12 min-h-[420px] sm:min-h-[500px] flex items-center justify-center">
             {loading ? (
               <div className="flex flex-col items-center gap-4">
                 <Loader2 className="w-10 h-10 text-accent-purple animate-spin" />
@@ -263,7 +263,7 @@ const TechQuiz = () => {
                       <motion.div 
                         initial={{ y: 20, opacity: 0 }} 
                         animate={{ y: 0, opacity: 1 }} 
-                        className="bg-white/5 border border-accent-purple/30 p-8 rounded-[3rem] relative overflow-hidden mb-8 shadow-2xl"
+                        className="bg-white/5 border border-accent-purple/30 p-5 sm:p-8 rounded-[1.75rem] sm:rounded-[3rem] relative overflow-hidden mb-8 shadow-2xl"
                       >
                         <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none"><Gift size={120}/></div>
                         

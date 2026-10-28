@@ -8,7 +8,7 @@ const FreelanceCTA = () => {
     <section className="py-16 sm:py-20 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal3D>
-          <div className="relative bg-zinc-900/80 border border-zinc-800 rounded-3xl p-6 sm:p-12 md:p-14 overflow-hidden backdrop-blur-xl">
+          <div className="glass-panel relative rounded-[1.75rem] p-5 sm:p-12 md:p-14 overflow-hidden backdrop-blur-xl">
             <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 sm:gap-12">
               <div className="text-left">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-zinc-950 border border-zinc-800 rounded-full mb-5">

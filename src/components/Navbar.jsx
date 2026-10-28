@@ -61,9 +61,9 @@ const Navbar = () => {
         className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-accent-blue via-amber-400 to-accent-purple origin-left z-[120]"
       />
 
-      <nav className="fixed top-4 sm:top-5 left-0 w-full z-[100] px-3 sm:px-6">
+      <nav className="fixed top-[max(0.75rem,env(safe-area-inset-top))] sm:top-5 left-0 w-full z-[100] px-2.5 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="bg-zinc-900/80 backdrop-blur-2xl border border-zinc-800/90 rounded-2xl px-4 sm:px-6 py-3 flex justify-between items-center shadow-[0_12px_40px_rgba(0,0,0,0.55)]">
+          <div className="bg-zinc-900/80 backdrop-blur-2xl border border-zinc-800/90 rounded-2xl px-3.5 sm:px-6 py-2.5 sm:py-3 flex justify-between items-center shadow-[0_12px_40px_rgba(0,0,0,0.55)]">
             {/* Editorial Brand Name */}
             <div
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -119,7 +119,7 @@ const Navbar = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden p-2 rounded-xl bg-zinc-800/70 text-zinc-200 hover:text-white"
+              className="lg:hidden p-2.5 rounded-xl bg-zinc-800/70 text-zinc-200 hover:text-white"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle Menu"
             >

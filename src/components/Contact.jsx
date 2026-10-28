@@ -57,14 +57,14 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 sm:py-24 px-4 sm:px-6 relative overflow-hidden">
+    <section id="contact" className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
         <ScrollReveal3D>
-          <div className="mb-12">
-            <span className="text-xs font-semibold uppercase tracking-widest text-accent-blue block mb-2">
+          <div className="section-heading mb-10 sm:mb-12">
+            <span className="section-label mb-3">
               07 / Contact
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+            <h2 className="text-[clamp(2rem,6vw,3.2rem)] font-black text-white tracking-tight leading-[1.05]">
               Start a{' '}
               <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">
                 Conversation
@@ -79,7 +79,7 @@ const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
           <div className="lg:col-span-5 space-y-6">
             <ScrollReveal3D>
-              <TiltCard className="bg-zinc-900/80 backdrop-blur-xl p-6 sm:p-8 rounded-3xl">
+              <TiltCard className="glass-panel p-5 sm:p-8 rounded-[1.75rem]">
                 <div className="flex items-center gap-2 text-xs font-semibold text-accent-blue uppercase tracking-wider mb-3">
                   <Mail size={15} /> Direct Email
                 </div>
@@ -103,7 +103,7 @@ const Contact = () => {
             </ScrollReveal3D>
 
             <ScrollReveal3D delay={0.08}>
-              <TiltCard className="bg-zinc-900/80 backdrop-blur-xl p-6 sm:p-8 rounded-3xl">
+              <TiltCard className="glass-panel p-5 sm:p-8 rounded-[1.75rem]">
                 <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-4">
                   Social Channels
                 </p>

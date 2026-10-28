@@ -9,7 +9,7 @@ const InteractiveLab = () => {
   const [activeTab, setActiveTab] = useState('visualizer');
 
   return (
-    <section id="interactive-lab" className="py-20 sm:py-24 px-4 sm:px-6 relative overflow-hidden">
+    <section id="interactive-lab" className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal3D>
           <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 sm:mb-12 gap-6">

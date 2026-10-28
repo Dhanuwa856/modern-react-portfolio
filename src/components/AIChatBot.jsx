@@ -125,7 +125,7 @@ const AIChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[100] font-sans">
+    <div className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] sm:bottom-6 sm:right-6 z-[100] font-sans">
       <AnimatePresence>
         {showNotification && !isOpen && (
           <motion.div
@@ -159,7 +159,7 @@ const AIChatBot = () => {
             initial={{ opacity: 0, y: 20, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.96 }}
-            className="mb-3 w-[calc(100vw-2rem)] sm:w-[380px] h-[500px] max-h-[75vh] bg-zinc-900/95 backdrop-blur-2xl border border-zinc-800 rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.85)] flex flex-col overflow-hidden"
+            className="mb-3 w-[calc(100vw-1.5rem)] sm:w-[380px] h-[min(500px,calc(100dvh-7rem))] max-h-[75vh] bg-zinc-900/95 backdrop-blur-2xl border border-zinc-800 rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.85)] flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="px-5 py-4 bg-zinc-950/80 border-b border-zinc-800 flex justify-between items-center">

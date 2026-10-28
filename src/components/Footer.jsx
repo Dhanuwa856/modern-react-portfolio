@@ -6,7 +6,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="py-12 px-4 sm:px-6 border-t border-zinc-800/80 bg-zinc-950 relative overflow-hidden">
+    <footer className="py-10 sm:py-12 px-4 sm:px-6 border-t border-zinc-800/80 bg-zinc-950/80 relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-center md:text-left">

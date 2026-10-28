@@ -13,6 +13,9 @@ const ThreeBackground = () => {
     const container = mountRef.current;
     if (!container) return;
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth < 768;
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       50,
@@ -28,7 +31,7 @@ const ThreeBackground = () => {
       powerPreference: 'high-performance',
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 1.75));
     container.appendChild(renderer.domElement);
 
     // Studio Lighting for 3D Depth
@@ -48,7 +51,14 @@ const ThreeBackground = () => {
     scene.add(stageGroup);
 
     // 1. Primary 3D Architectural TorusKnot (Subtle Wireframe + Shaded Core)
-    const knotGeo = new THREE.TorusKnotGeometry(5.5, 1.35, 140, 20, 2, 3);
+    const knotGeo = new THREE.TorusKnotGeometry(
+      5.5,
+      1.35,
+      isMobile ? 72 : 140,
+      isMobile ? 12 : 20,
+      2,
+      3
+    );
     const knotMat = new THREE.MeshStandardMaterial({
       color: 0x18181b,
       roughness: 0.25,
@@ -84,13 +94,13 @@ const ThreeBackground = () => {
     satPositions.forEach((pos, idx) => {
       const mesh = new THREE.Mesh(idx % 2 === 0 ? satGeo1 : satGeo2, satMat);
       mesh.position.set(pos[0], pos[1], pos[2]);
+      mesh.userData.baseY = pos[1];
       stageGroup.add(mesh);
       satellites.push(mesh);
     });
 
     // 3. Subtle Floating Dust Motes
-    const isMobile = window.innerWidth < 768;
-    const particleCount = isMobile ? 90 : 180;
+    const particleCount = isMobile ? 45 : 160;
     const positions = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 60;
@@ -155,20 +165,20 @@ const ThreeBackground = () => {
       const scrollProgress = smoothScroll * 0.0015;
 
       // 3D Scroll-Driven Sculpture Rotation & Position Shift
-      knotMesh.rotation.x = t * 0.15 + scrollProgress * 1.8;
-      knotMesh.rotation.y = t * 0.22 + scrollProgress * 2.4;
+      knotMesh.rotation.x = (prefersReducedMotion ? 0 : t * 0.15) + scrollProgress * 1.8;
+      knotMesh.rotation.y = (prefersReducedMotion ? 0 : t * 0.22) + scrollProgress * 2.4;
       knotMesh.position.y = Math.sin(scrollProgress) * 3.5;
 
       // Orbit satellites based on scroll + time
       satellites.forEach((sat, i) => {
-        sat.rotation.x = t * 0.3 + i + scrollProgress * 2;
-        sat.rotation.y = t * 0.25 + scrollProgress * 1.5;
-        sat.position.y += Math.sin(t + i) * 0.005;
+        sat.rotation.x = (prefersReducedMotion ? 0 : t * 0.3) + i + scrollProgress * 2;
+        sat.rotation.y = (prefersReducedMotion ? 0 : t * 0.25) + scrollProgress * 1.5;
+        sat.position.y = sat.userData.baseY + (prefersReducedMotion ? 0 : Math.sin(t + i) * 0.35);
       });
 
       // Stage parallax from cursor & scroll
-      stageGroup.rotation.y = smoothMouseX * 0.22 + Math.sin(scrollProgress * 0.5) * 0.25;
-      stageGroup.rotation.x = -smoothMouseY * 0.16;
+      stageGroup.rotation.y = smoothMouseX * 0.22 + (prefersReducedMotion ? 0 : Math.sin(scrollProgress * 0.5) * 0.25);
+      stageGroup.rotation.x = prefersReducedMotion ? 0 : -smoothMouseY * 0.16;
 
       renderer.render(scene, camera);
     };

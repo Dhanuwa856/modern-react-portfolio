@@ -205,7 +205,7 @@ const AIRoadmap = () => {
   const lineHeight = useTransform(smoothLineProgress, [0, 1], ['0%', '100%']);
 
   return (
-    <section id="roadmap" className="py-20 sm:py-28 px-4 sm:px-6 relative overflow-hidden">
+    <section id="roadmap" className="py-16 sm:py-28 px-4 sm:px-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div
@@ -213,12 +213,12 @@ const AIRoadmap = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.55 }}
-          className="mb-16 md:text-center"
+          className="section-heading mb-12 sm:mb-16 md:mx-auto md:text-center"
         >
-          <span className="text-xs font-semibold uppercase tracking-widest text-accent-blue block mb-2">
+          <span className="section-label mb-3">
             04 / Progression
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+          <h2 className="text-[clamp(2rem,6vw,3.2rem)] font-black text-white tracking-tight leading-[1.05]">
             AI &amp; Full-Stack{' '}
             <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">
               Engineering Roadmap
@@ -232,7 +232,7 @@ const AIRoadmap = () => {
         {/* Scroll-Animated Vertical Timeline Container */}
         <div ref={timelineRef} className="relative">
           {/* Background Static Track Line */}
-          <div className="absolute left-4 md:left-1/2 -translate-x-1/2 top-4 bottom-4 w-[2px] bg-zinc-800/80 rounded-full" />
+          <div className="absolute left-4 md:left-1/2 -translate-x-1/2 top-4 bottom-4 w-px bg-zinc-800/80 rounded-full" />
 
           {/* Dynamic Glowing Scroll Line that fills as you scroll down */}
           <motion.div

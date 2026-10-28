@@ -48,14 +48,14 @@ const About = () => {
       : SKILLS.filter((s) => s.category === activeSkillTab);
 
   return (
-    <section id="about" className="py-20 sm:py-24 px-4 sm:px-6 relative">
+    <section id="about" className="py-16 sm:py-24 px-4 sm:px-6 relative">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal3D>
-          <div className="mb-12">
-            <span className="text-xs font-semibold uppercase tracking-widest text-accent-blue block mb-2">
+          <div className="section-heading mb-10 sm:mb-12">
+            <span className="section-label mb-3">
               01 / Profile &amp; Capabilities
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+            <h2 className="text-[clamp(2rem,6vw,3.2rem)] font-black text-white tracking-tight leading-[1.05]">
               Bridging Machine Learning &amp;{' '}
               <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">
                 Full-Stack Engineering
@@ -70,8 +70,8 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           {/* Profile Card */}
           <ScrollReveal3D className="lg:col-span-4">
-            <TiltCard className="h-full bg-zinc-900/80 backdrop-blur-xl rounded-3xl overflow-hidden flex flex-col justify-between">
-              <div className="relative h-72 sm:h-88 overflow-hidden bg-zinc-950">
+            <TiltCard className="glass-panel h-full rounded-[1.75rem] overflow-hidden flex flex-col justify-between">
+              <div className="relative aspect-[4/3] sm:aspect-auto sm:h-88 overflow-hidden bg-zinc-950">
                 <img
                   src="https://gzafpxoufkzcndgtmhyh.supabase.co/storage/v1/object/public/portfolio-assets/Gemini_Generated_Image_4mnxkj4mnxkj4mnx.png"
                   alt="Dhanushka Rathnayaka"
@@ -117,7 +117,7 @@ const About = () => {
           <div className="lg:col-span-8 flex flex-col gap-6">
             <ScrollReveal3D>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <TiltCard className="bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-6">
+                <TiltCard className="glass-panel rounded-[1.75rem] p-5 sm:p-6">
                   <div className="w-10 h-10 rounded-2xl bg-accent-blue/15 border border-accent-blue/30 flex items-center justify-center text-accent-blue mb-4">
                     <BrainCircuit size={20} />
                   </div>
@@ -129,7 +129,7 @@ const About = () => {
                   </p>
                 </TiltCard>
 
-                <TiltCard className="bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-6">
+                <TiltCard className="glass-panel rounded-[1.75rem] p-5 sm:p-6">
                   <div className="w-10 h-10 rounded-2xl bg-accent-purple/15 border border-accent-purple/30 flex items-center justify-center text-accent-purple mb-4">
                     <Code2 size={20} />
                   </div>
@@ -144,7 +144,7 @@ const About = () => {
             </ScrollReveal3D>
 
             <ScrollReveal3D className="flex-1">
-              <TiltCard className="h-full bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-5 sm:p-6 flex flex-col justify-between">
+              <TiltCard className="glass-panel h-full rounded-[1.75rem] p-5 sm:p-6 flex flex-col justify-between">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
                   <div>
                     <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">

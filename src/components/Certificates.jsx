@@ -37,7 +37,7 @@ const Certificates = () => {
   );
 
   return (
-    <section id="certificates" className="py-20 sm:py-24 px-4 sm:px-6 relative">
+    <section id="certificates" className="py-16 sm:py-24 px-4 sm:px-6 relative">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal3D>
           <div className="mb-12">
@@ -67,7 +67,7 @@ const Certificates = () => {
                 <ScrollReveal3D key={cert.id} delay={idx * 0.05}>
                   <TiltCard
                     onClick={() => setSelectedCert(cert)}
-                    className="cursor-pointer bg-zinc-900/80 backdrop-blur-xl rounded-3xl overflow-hidden h-full"
+                    className="cursor-pointer glass-panel rounded-[1.75rem] overflow-hidden h-full"
                   >
                     <div className="relative h-52 overflow-hidden bg-zinc-950 border-b border-zinc-800/80">
                       <img

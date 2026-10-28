@@ -20,7 +20,7 @@ const Education = () => {
   }, []);
 
   return (
-    <section id="education" className="py-20 sm:py-24 px-4 sm:px-6">
+    <section id="education" className="py-16 sm:py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal3D>
           <div className="mb-12">
@@ -42,7 +42,7 @@ const Education = () => {
         <div className="grid grid-cols-1 gap-6">
           {eduData.map((edu, index) => (
             <ScrollReveal3D key={edu.id} delay={index * 0.08}>
-              <TiltCard className="bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8">
+              <TiltCard className="glass-panel rounded-[1.75rem] p-5 sm:p-8">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
                   <div>
                     <div className="flex items-center gap-3 mb-2">

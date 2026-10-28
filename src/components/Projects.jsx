@@ -63,15 +63,15 @@ const Projects = () => {
   const totalPages = Math.ceil(totalCount / projectsPerPage);
 
   return (
-    <section id="projects" className="py-20 sm:py-24 px-4 sm:px-6">
+    <section id="projects" className="py-16 sm:py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal3D>
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-widest text-accent-blue block mb-2">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-12 gap-6">
+            <div className="section-heading">
+              <span className="section-label mb-3">
                 02 / Selected Works
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+              <h2 className="text-[clamp(2rem,6vw,3.2rem)] font-black text-white tracking-tight leading-[1.05]">
                 Featured{' '}
                 <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">
                   Engineering Projects
@@ -108,7 +108,7 @@ const Projects = () => {
             {!loading ? (
               projects.map((project, idx) => (
                 <ScrollReveal3D key={project.id} delay={idx * 0.05}>
-                  <TiltCard className="h-full bg-zinc-900/80 backdrop-blur-xl rounded-3xl overflow-hidden flex flex-col justify-between">
+                  <TiltCard className="glass-panel h-full rounded-[1.75rem] overflow-hidden flex flex-col justify-between">
                     <div>
                       <div className="relative aspect-video overflow-hidden bg-zinc-950 border-b border-zinc-800/80">
                         <img

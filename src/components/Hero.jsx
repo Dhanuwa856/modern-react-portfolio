@@ -98,7 +98,7 @@ const Hero = () => {
           opacity: heroOpacity,
           transformOrigin: 'center top',
         }}
-        className="relative z-10 max-w-6xl mx-auto w-full px-4 sm:px-6 my-auto py-8"
+        className="relative z-10 max-w-6xl mx-auto w-full px-4 sm:px-6 my-auto py-6 sm:py-8"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Left Column: Editorial Typography & CTAs */}
@@ -119,7 +119,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.08 }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.1rem] font-black tracking-tight text-white mb-6 leading-[1.08]"
+              className="text-[clamp(2.35rem,9vw,4.1rem)] font-black tracking-tight text-white mb-6 leading-[1.04] text-balance"
             >
               Designing intelligent{' '}
               <span className="bg-gradient-to-r from-accent-blue via-amber-300 to-accent-purple bg-clip-text text-transparent">
@@ -175,7 +175,7 @@ const Hero = () => {
             </motion.div>
 
             {/* Clean Editorial Metrics */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-800/80 max-w-lg">
+            <div className="grid grid-cols-1 min-[420px]:grid-cols-3 gap-4 pt-6 border-t border-zinc-800/80 max-w-lg">
               <div>
                 <p className="text-lg sm:text-xl font-bold text-white">AI &amp; ML</p>
                 <p className="text-xs text-zinc-500 mt-0.5">Python • Scikit • NumPy</p>
