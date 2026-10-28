@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Github, Linkedin, Facebook, Heart, ArrowUp } from 'lucide-react';
 
 const Footer = () => {
@@ -7,44 +6,40 @@ const Footer = () => {
   };
 
   return (
-    <footer className="py-12 px-6 border-t border-white/5 bg-dark-bg relative overflow-hidden">
-      {/* Background Subtle Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-accent-blue/20 to-transparent" />
-
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-10">
-          
-          {/* Brand Section */}
+    <footer className="py-12 px-4 sm:px-6 border-t border-zinc-800/80 bg-zinc-950 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-center md:text-left">
-            <h2 className="text-2xl font-black tracking-tighter">
-              DHANUSHKA<span className="text-accent-blue">.</span>
+            <h2 className="text-xl font-black tracking-tight text-white flex items-center justify-center md:justify-start gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-accent-blue inline-block" />
+              Dhanushka Rathnayaka
             </h2>
-            <p className="text-slate-500 text-xs font-mono mt-2 tracking-widest uppercase">
-              Building the future with AI & Code
+            <p className="text-zinc-500 text-xs mt-1.5">
+              AI Engineer &amp; Full-Stack Developer • ITUM Sri Lanka
             </p>
           </div>
 
-          {/* Quick Navigation */}
-          <nav className="flex flex-wrap justify-center gap-8 text-sm font-bold uppercase tracking-widest text-slate-400">
+          <nav className="flex flex-wrap justify-center gap-5 sm:gap-7 text-xs font-semibold text-zinc-400">
             <a href="#about" className="hover:text-white transition-colors">About</a>
-            <a href="#education" className="hover:text-white transition-colors">Education</a>
             <a href="#projects" className="hover:text-white transition-colors">Works</a>
+            <a href="#interactive-lab" className="hover:text-white transition-colors">Python Lab</a>
             <a href="#roadmap" className="hover:text-white transition-colors">Roadmap</a>
+            <a href="#education" className="hover:text-white transition-colors">Education</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </nav>
 
-          {/* Social Icons */}
-          <div className="flex gap-5">
+          <div className="flex gap-3">
             {[
-              { icon: <Github size={20} />, link: "https://github.com/Dhanuwa856" },
-              { icon: <Linkedin size={20} />, link: "https://www.linkedin.com/in/dhanushka-rathnayaka" },
-              { icon: <Facebook size={20} />, link: "https://www.facebook.com/profile.php?id=61577681014893" }
+              { icon: <Github size={18} />, link: 'https://github.com/Dhanuwa856' },
+              { icon: <Linkedin size={18} />, link: 'https://www.linkedin.com/in/dhanushka-rathnayaka' },
+              { icon: <Facebook size={18} />, link: 'https://www.facebook.com/profile.php?id=61577681014893' },
             ].map((social, i) => (
-              <a 
-                key={i} 
-                href={social.link} 
-                target="_blank" 
-                className="p-3 bg-white/5 border border-white/10 rounded-full hover:border-accent-blue hover:text-accent-blue transition-all"
+              <a
+                key={i}
+                href={social.link}
+                target="_blank"
+                rel="noreferrer"
+                className="p-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-zinc-400 hover:text-white hover:border-zinc-700 transition-all"
               >
                 {social.icon}
               </a>
@@ -52,27 +47,24 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-          {/* Copyright Info */}
-          <div className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.3em]">
-            © {new Date().getFullYear()} All Rights Reserved
+        <div className="mt-10 pt-6 border-t border-zinc-900 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="text-zinc-500 text-xs">
+            © {new Date().getFullYear()} Dhanushka Rathnayaka. All rights reserved.
           </div>
 
-          {/* Made With Credit */}
-          <div className="flex items-center gap-2 text-slate-400 text-xs font-medium">
-            <span>Developed with</span>
-            <Heart size={14} className="text-red-500 fill-red-500 animate-pulse" />
-            <span>by Dhanushka Rathnayaka</span>
+          <div className="flex items-center gap-1.5 text-zinc-400 text-xs">
+            <span>Crafted with</span>
+            <Heart size={13} className="text-accent-blue fill-accent-blue" />
+            <span>in Sri Lanka</span>
           </div>
 
-          {/* Back to Top */}
-          <button 
+          <button
             onClick={scrollToTop}
-            className="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-all"
+            className="group flex items-center gap-2 text-xs font-semibold text-zinc-400 hover:text-white transition-all cursor-pointer"
           >
             Back to top
-            <div className="p-2 bg-white/5 rounded-full group-hover:bg-accent-blue group-hover:text-white transition-all">
-              <ArrowUp size={14} />
+            <div className="p-2 bg-zinc-900 border border-zinc-800 rounded-xl group-hover:bg-white group-hover:text-zinc-950 transition-all">
+              <ArrowUp size={13} />
             </div>
           </button>
         </div>

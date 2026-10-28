@@ -4,65 +4,38 @@ import { motion, useSpring } from 'framer-motion';
 const CustomCursor = () => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // මවුස් එකේ පිහිටීම (Position) ලබා ගැනීමට
-  const mouseX = useSpring(0, { damping: 30, stiffness: 200 });
-  const mouseY = useSpring(0, { damping: 30, stiffness: 200 });
+  const mouseX = useSpring(0, { damping: 28, stiffness: 240 });
+  const mouseY = useSpring(0, { damping: 28, stiffness: 240 });
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
+      const interactable = e.target?.closest('button, a, input, textarea, select');
+      setIsHovered(Boolean(interactable));
     };
 
-    // Hover effect එක සඳහා selectors
-    const handleMouseEnter = () => setIsHovered(true);
-    const handleMouseLeave = () => setIsHovered(false);
-
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    // සියලුම links සහ buttons වලට listener එකක් දාමු
-    const targets = document.querySelectorAll('button, a, .hover-target');
-    targets.forEach(target => {
-      target.addEventListener('mouseenter', handleMouseEnter);
-      target.addEventListener('mouseleave', handleMouseLeave);
-    });
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      targets.forEach(target => {
-        target.removeEventListener('mouseenter', handleMouseEnter);
-        target.removeEventListener('mouseleave', handleMouseLeave);
-      });
-    };
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY]);
 
   return (
-    <>
-      {/* ප්‍රධාන Glow Cursor එක */}
+    <div className="hidden lg:block">
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[999] mix-blend-screen blur-md bg-accent-blue/40"
+        className="fixed top-0 left-0 w-7 h-7 rounded-full pointer-events-none z-[999] border border-zinc-400/40 mix-blend-difference"
         style={{
           translateX: mouseX,
           translateY: mouseY,
-          left: -16,
-          top: -16,
+          left: -14,
+          top: -14,
         }}
         animate={{
-          scale: isHovered ? 2.5 : 1,
-          backgroundColor: isHovered ? "rgba(168, 85, 247, 0.4)" : "rgba(59, 130, 246, 0.4)"
+          scale: isHovered ? 1.8 : 1,
+          backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0)',
         }}
+        transition={{ type: 'spring', stiffness: 260, damping: 22 }}
       />
-      {/* මැද තියෙන පොඩි තිත (Dot) */}
-      <motion.div
-        className="fixed top-0 left-0 w-1.5 h-1.5 bg-white rounded-full pointer-events-none z-[999]"
-        style={{
-          translateX: mouseX,
-          translateY: mouseY,
-          left: -3,
-          top: -3,
-        }}
-      />
-    </>
+    </div>
   );
 };
 

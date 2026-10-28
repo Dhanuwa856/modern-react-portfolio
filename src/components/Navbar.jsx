@@ -1,185 +1,194 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Github, Linkedin, MessageCircle } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import { Menu, X, Github, Linkedin, ArrowUpRight } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState(null); // 🔥 මුලින්ම null (කිසිම link එකක් active නෑ)
+  const [activeSection, setActiveSection] = useState('Home');
 
-  const menuVariants = {
-    closed: { opacity: 0, scale: 0.95, y: -20 },
-    opened: { 
-      opacity: 1, scale: 1, y: 0,
-      transition: { 
-        type: "spring", stiffness: 300, damping: 30,
-        staggerChildren: 0.1, delayChildren: 0.2
-      }
-    },
-    exit: { 
-      opacity: 0, scale: 0.95, y: -20,
-      transition: { duration: 0.2 }
-    }
-  };
-
-  const itemVariants = {
-    closed: { opacity: 0, x: -10 },
-    opened: { opacity: 1, x: 0 }
-  };
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   const links = [
     { name: 'Home', href: '#' },
     { name: 'About', href: '#about' },
-    { name: 'Certificates', href: '#certificates' },
-    { name: 'Projects', href: '#projects' },
+    { name: 'Works', href: '#projects' },
+    { name: 'Python Lab', href: '#interactive-lab' },
+    { name: 'Roadmap', href: '#roadmap' },
+    { name: 'Credentials', href: '#certificates' },
     { name: 'Contact', href: '#contact' },
   ];
 
-  // 🔥 ScrollSpy Logic – මෙතනදි තමයි ප්‍රධාන වෙනස
   useEffect(() => {
     const handleScroll = () => {
-      // 1. Home section එක (top එක) හඳුනාගැනීම
-      if (window.scrollY < 100) {
+      if (window.scrollY < 120) {
         setActiveSection('Home');
         return;
       }
 
-      // 2. අනිත් sections check කරනවා
       const sections = links
-        .filter(link => link.href.startsWith('#') && link.href !== '#')
-        .map(link => link.href.substring(1));
-
-      let found = false; // කොහෙවත් section එකක් match උනාද කියලා track කරන්න
+        .filter((link) => link.href.startsWith('#') && link.href !== '#')
+        .map((link) => link.href.substring(1));
 
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // section එක screen එකේ මැදට එනකොට active කරන්න
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            const activeLink = links.find(l => l.href === `#${section}`);
+          if (rect.top <= 220 && rect.bottom >= 220) {
+            const activeLink = links.find((l) => l.href === `#${section}`);
             if (activeLink) {
               setActiveSection(activeLink.name);
-              found = true;
-              break; // එක section එකක් පමණයි active වෙන්න ඕන
+              break;
             }
           }
         }
       }
-
-      // 3. කිසිම section එකක් match නොවුනොත් activeStatus null කරන්න
-      if (!found) {
-        setActiveSection(null);
-      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [links]);
+  }, []);
 
   return (
-    <nav className="fixed top-6 left-0 w-full z-[100] px-6">
-      <div className="max-w-5xl mx-auto">
-        <div className="bg-dark-bg/40 backdrop-blur-2xl border border-white/10 rounded-full px-6 py-3 flex justify-between items-center shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
-          
-          {/* Brand Logo */}
-          <motion.div 
-            whileHover={{ scale: 1.05 }}
-            className="text-lg font-black tracking-widest cursor-pointer"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          >
-            <span className="bg-gradient-to-r from-accent-blue via-white to-accent-purple bg-clip-text text-transparent">
-              DHANUSHKA
-            </span>
-          </motion.div>
+    <>
+      {/* Editorial Warm Coral-Indigo Scroll Progress Bar */}
+      <motion.div
+        style={{ scaleX }}
+        className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-accent-blue via-amber-400 to-accent-purple origin-left z-[120]"
+      />
 
-          {/* Desktop Nav Items */}
-          <div className="hidden md:flex items-center gap-8">
-            {links.map((link) => (
-              <a 
-                key={link.name} 
-                href={link.href} 
-                className={`text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-300 relative
-                  ${activeSection === link.name 
-                    ? 'text-accent-blue drop-shadow-[0_0_10px_rgba(59,130,246,0.8)] scale-110'
-                    : 'text-slate-400 hover:text-white hover:scale-105'
-                  }`}
-              >
-                {link.name}
-                {activeSection === link.name && (
-                  <motion.div 
-                    layoutId="activeNavDot"
-                    className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-accent-blue rounded-full shadow-[0_0_5px_rgba(59,130,246,1)]"
-                  />
-                )}
-              </a>
-            ))}
-            
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-accent-blue/10 text-accent-blue border border-accent-blue/20 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ml-2"
-              href="https://wa.me/94760093002?text=Hi%20Dhanushka,%20I'm%20interested%20in%20discussing%20a%20project!"
-              target="_blank" 
-              rel="noreferrer"
+      <nav className="fixed top-4 sm:top-5 left-0 w-full z-[100] px-3 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-zinc-900/80 backdrop-blur-2xl border border-zinc-800/90 rounded-2xl px-4 sm:px-6 py-3 flex justify-between items-center shadow-[0_12px_40px_rgba(0,0,0,0.55)]">
+            {/* Editorial Brand Name */}
+            <div
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="text-base sm:text-lg font-black tracking-tight cursor-pointer flex items-center gap-1.5"
             >
-              Let's Talk
-            </motion.a>
-          </div>
-
-          {/* Mobile Menu Trigger */}
-          <button 
-            className="md:hidden p-2 text-white/70 hover:text-white"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Modern Elastic Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            variants={menuVariants}
-            initial="closed"
-            animate="opened"
-            exit="exit"
-            className="absolute top-20 left-6 right-6 md:hidden bg-[#050505]/95 backdrop-blur-3xl border border-white/10 p-8 rounded-[2.5rem] shadow-2xl"
-          >
-            <div className="flex flex-col gap-6">
-              {links.map((link) => (
-                <motion.a 
-                  variants={itemVariants}
-                  key={link.name} 
-                  href={link.href} 
-                  onClick={() => setIsOpen(false)}
-                  className={`text-3xl font-bold tracking-tight transition-colors flex items-center gap-4
-                    ${activeSection === link.name 
-                      ? 'text-accent-blue drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]' 
-                      : 'text-slate-200 hover:text-white'
-                    }`}
-                >
-                  {activeSection === link.name && (
-                    <motion.div layoutId="activeMobileNav" className="w-2 h-2 rounded-full bg-accent-blue" />
-                  )}
-                  {link.name}
-                </motion.a>
-              ))}
-              
-              <motion.div variants={itemVariants} className="h-[1px] bg-white/5 my-4" />
-              
-              <motion.div variants={itemVariants} className="flex justify-between items-center">
-                 <div className="flex gap-4">
-                    <a href="https://github.com/Dhanuwa856" target="_blank" rel="noreferrer"><Github className="text-slate-500 hover:text-white" /></a>
-                    <a href="https://linkedin.com/in/dhanushkarathnayaka" target="_blank" rel="noreferrer"><Linkedin className="text-slate-500 hover:text-white" /></a>
-                 </div>
-                 <MessageCircle className="text-accent-blue" />
-              </motion.div>
+              <span className="w-2 h-2 rounded-full bg-accent-blue inline-block" />
+              <span className="text-white">Dhanushka</span>
+              <span className="text-zinc-500 font-medium text-xs hidden sm:inline">
+                / Portfolio
+              </span>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+
+            {/* Desktop Pill Navigation */}
+            <div className="hidden lg:flex items-center gap-1 bg-zinc-950/70 p-1 rounded-xl border border-zinc-800/80">
+              {links.map((link) => {
+                const isActive = activeSection === link.name;
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                      isActive
+                        ? 'bg-zinc-800 text-white shadow-xs'
+                        : 'text-zinc-400 hover:text-zinc-100'
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                );
+              })}
+            </div>
+
+            {/* Right CTA */}
+            <div className="hidden lg:flex items-center gap-3">
+              <a
+                href="https://github.com/Dhanuwa856"
+                target="_blank"
+                rel="noreferrer"
+                className="p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-800 transition"
+                title="GitHub"
+              >
+                <Github size={18} />
+              </a>
+              <a
+                href="https://wa.me/94760093002?text=Hi%20Dhanushka,%20I'm%20interested%20in%20discussing%20a%20project!"
+                target="_blank"
+                rel="noreferrer"
+                className="bg-white hover:bg-zinc-200 text-zinc-950 px-4 py-2 rounded-xl text-xs font-bold tracking-tight flex items-center gap-1 transition-all"
+              >
+                Let&apos;s Talk <ArrowUpRight size={14} />
+              </a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="lg:hidden p-2 rounded-xl bg-zinc-800/70 text-zinc-200 hover:text-white"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle Menu"
+            >
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Responsive Drawer */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.98 }}
+              className="mt-2.5 max-w-6xl mx-auto lg:hidden bg-zinc-900/95 backdrop-blur-2xl border border-zinc-800 p-5 rounded-2xl shadow-2xl"
+            >
+              <div className="grid grid-cols-2 gap-2">
+                {links.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
+                      activeSection === link.name
+                        ? 'bg-accent-blue text-white'
+                        : 'bg-zinc-800/50 text-zinc-200 hover:bg-zinc-800'
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                ))}
+              </div>
+
+              <div className="h-px bg-zinc-800 my-4" />
+
+              <div className="flex justify-between items-center">
+                <div className="flex gap-3">
+                  <a
+                    href="https://github.com/Dhanuwa856"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-2.5 rounded-xl bg-zinc-800 text-zinc-200"
+                  >
+                    <Github size={18} />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/dhanushka-rathnayaka"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-2.5 rounded-xl bg-zinc-800 text-zinc-200"
+                  >
+                    <Linkedin size={18} />
+                  </a>
+                </div>
+                <a
+                  href="https://wa.me/94760093002?text=Hi%20Dhanushka,%20I'm%20interested%20in%20discussing%20a%20project!"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1.5 bg-white text-zinc-950 px-4 py-2.5 rounded-xl text-xs font-bold"
+                >
+                  Let&apos;s Talk <ArrowUpRight size={15} />
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </>
   );
 };
 

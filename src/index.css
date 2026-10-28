@@ -2,69 +2,80 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
 }
 
-/* Navbar එක නිසා Section එකේ Title එක වැසීම වැලැක්වීමට (Offset) */
 :target {
   scroll-margin-top: 100px;
 }
 
-/* මුළු සයිට් එකටම පොදු Scroll Padding එකක් දීම */
-html {
-  scroll-padding-top: 5rem; 
-}
-
 @theme {
-  /* අපේ සන්නාමයේ වර්ණ (Branding Colors) */
-  --color-dark-bg: #030712;      /* ඉතා තද අඳුරු වර්ණයක් */
-  --color-accent-blue: #3b82f6;  /* Electric Blue */
-  --color-accent-purple: #a855f7; /* Purple Glow */
-  --color-glass: rgba(255, 255, 255, 0.03); /* වීදුරු ආචරණය සඳහා */
-  
-  --font-sans: 'Inter', system-ui, sans-serif;
+  /* Apple Titanium & Editorial Studio Palette (Non-Gaming, Sophisticated & Warm) */
+  --color-dark-bg: #09090b;       /* Deep Zinc Obsidian */
+  --color-accent-blue: #f97316;   /* Warm Sunset Coral / Amber (Primary Editorial Accent) */
+  --color-accent-purple: #6366f1; /* Soft Studio Indigo (Secondary Accent) */
+  --color-glass: rgba(24, 24, 27, 0.72);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 @layer base {
   body {
-    @apply bg-dark-bg text-slate-300 antialiased selection:bg-accent-blue/30;
+    @apply bg-dark-bg text-zinc-200 antialiased selection:bg-accent-blue/30 selection:text-white overflow-x-hidden;
   }
-  
-  /* Scrollbar එක සයිට් එකට ගැලපෙන විදිහට හදමු */
+
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #030712;
+    background: #09090b;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1f2937;
-    border-radius: 10px;
+    background: #27272a;
+    border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #3b82f6;
+    background: #f97316;
   }
+}
+
+.perspective-1200 {
+  perspective: 1200px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
 }
 
-.animate-spin-slow {
-  animation: spin 6s linear infinite;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -1,184 +1,315 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Play, Pause, RotateCcw, StepForward, Cpu, Plus, Sparkles } from 'lucide-react';
+import TiltCard from './TiltCard';
 
-const PythonVisualizer = () => {
-  // උදාහරණ ලැයිස්තු (Scenarios)
-  const scenarios = {
-    fruits: { label: 'පලතුරු (Fruits)', items: ['Apple', 'Mango', 'Banana'] },
-    workout: { label: 'ව්‍යායාම (Workout)', items: ['Push-ups', 'Pull-ups', 'Leg Day'] }
-  };
+const PythonVisualizer = ({ embedded = false }) => {
+  const [scenarios, setScenarios] = useState({
+    ai_layers: {
+      label: 'AI Model Layers (Deep Learning)',
+      varName: 'layer',
+      listName: 'model_layers',
+      items: ['Input_Layer', 'Dense_ReLU', 'Dropout_0.2', 'Softmax_Out'],
+    },
+    fullstack_api: {
+      label: 'Full-Stack API Routes (FastAPI)',
+      varName: 'route',
+      listName: 'api_routes',
+      items: ['/api/auth', '/api/projects', '/api/predict', '/api/chat'],
+    },
+    fruits: {
+      label: 'පලතුරු ලැයිස්තුව (Fruits List)',
+      varName: 'fruit',
+      listName: 'fruits_list',
+      items: ['Apple', 'Mango', 'Banana', 'Orange'],
+    },
+  });
 
-  const [activeScenario, setActiveScenario] = useState('fruits');
+  const [activeScenario, setActiveScenario] = useState('ai_layers');
+  const [customItem, setCustomItem] = useState('');
   const [step, setStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [speedMs, setSpeedMs] = useState(1200);
 
-  const currentData = scenarios[activeScenario].items;
-  const totalSteps = currentData.length * 2; // එක් අයිතමයකට පියවර 2ක් (Variable එකට assign වීම සහ Print වීම)
+  const currentScenario = scenarios[activeScenario];
+  const currentData = currentScenario.items;
+  const totalSteps = currentData.length * 2;
 
-  // Auto-play Logic
   useEffect(() => {
     let timer;
     if (isPlaying && step < totalSteps) {
       timer = setTimeout(() => {
-        setStep(prev => prev + 1);
-      }, 1500); // තත්පර 1.5 ක පරතරයක්
+        setStep((prev) => prev + 1);
+      }, speedMs);
     } else if (step >= totalSteps) {
       setIsPlaying(false);
     }
     return () => clearTimeout(timer);
-  }, [isPlaying, step, totalSteps]);
+  }, [isPlaying, step, totalSteps, speedMs]);
 
   const handleReset = () => {
     setStep(0);
     setIsPlaying(false);
   };
 
-  // පියවර අනුව active වෙන code line එක
-  const activeCodeLine = step % 2 === 0 ? 1 : 2;
-  const currentItemIndex = Math.floor(step / 2);
-  const currentItem = step > 0 ? currentData[Math.min(currentItemIndex, currentData.length - 1)] : null;
-  const outputLines = currentData.slice(0, currentItemIndex + (step % 2 !== 0 ? 1 : 0));
+  const handleAddCustomItem = (e) => {
+    e.preventDefault();
+    const trimmed = customItem.trim();
+    if (!trimmed) return;
+    setScenarios((prev) => ({
+      ...prev,
+      [activeScenario]: {
+        ...prev[activeScenario],
+        items: [...prev[activeScenario].items.slice(0, 6), trimmed],
+      },
+    }));
+    setCustomItem('');
+    handleReset();
+  };
+
+  const activeCodeLine = step === 0 ? 0 : step % 2 === 1 ? 2 : 3;
+  const currentItemIndex = Math.floor((step - 1) / 2);
+  const currentItem =
+    step > 0 && currentItemIndex < currentData.length
+      ? currentData[currentItemIndex]
+      : null;
+  const outputLines = currentData.slice(0, Math.floor(step / 2));
 
   return (
-    <section id="python-playground" className="py-20 px-6 max-w-7xl mx-auto">
-      {/* --- Section Title (ඔයාගේ Style එකට අනුව) --- */}
-      <div className="mb-16">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-5xl md:text-7xl font-black mb-4 tracking-tighter leading-none text-white uppercase">
-            PYTHON <br />
-            <span className="bg-gradient-to-r from-accent-purple via-slate-100 to-accent-blue bg-clip-text text-transparent italic">
-              PLAYGROUND
+    <div id="python-playground" className={embedded ? '' : 'py-20 px-4 sm:px-6 max-w-6xl mx-auto'}>
+      <TiltCard
+        intensity={2}
+        scaleOnHover={1}
+        className="bg-zinc-900/85 backdrop-blur-xl rounded-3xl p-5 sm:p-8 shadow-xl"
+      >
+        {/* Top Controls Bar (Mobile Responsive) */}
+        <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4 mb-7 pb-6 border-b border-zinc-800">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <span className="text-zinc-200 font-semibold text-xs sm:text-sm flex items-center gap-2">
+              <Cpu size={16} className="text-accent-blue" /> Scenario:
             </span>
-          </h2>
-          <div className="flex flex-col md:flex-row md:items-center gap-4 mt-6">
-            <div className="h-[2px] w-16 bg-accent-purple rounded-full shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
-            <p className="text-slate-400 text-sm md:text-base font-medium max-w-md leading-relaxed">
-              Interactive learning <span className="text-white">Experience</span> bridging complex logic with <span className="text-accent-purple">Visual Animations</span>.
-            </p>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* --- Visualizer Container --- */}
-      <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 backdrop-blur-md shadow-2xl">
-        
-        {/* Controls Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-6 border-b border-white/10">
-          <div className="flex items-center gap-3">
-            <span className="text-slate-300 font-semibold">උදාහරණය තෝරන්න:</span>
-            <select 
-              className="bg-dark-bg border border-accent-blue/40 text-white rounded-lg px-4 py-2 outline-none focus:border-accent-purple transition"
+            <select
+              className="bg-zinc-950 border border-zinc-800 text-white text-xs sm:text-sm rounded-xl px-3.5 py-2.5 outline-none focus:border-accent-blue transition cursor-pointer"
               value={activeScenario}
               onChange={(e) => {
                 setActiveScenario(e.target.value);
                 handleReset();
               }}
             >
-              <option value="fruits">{scenarios.fruits.label}</option>
-              <option value="workout">{scenarios.workout.label}</option>
+              {Object.entries(scenarios).map(([key, val]) => (
+                <option key={key} value={key}>
+                  {val.label}
+                </option>
+              ))}
             </select>
+
+            <form onSubmit={handleAddCustomItem} className="flex items-center gap-2">
+              <input
+                type="text"
+                value={customItem}
+                onChange={(e) => setCustomItem(e.target.value)}
+                placeholder="Add item to list..."
+                maxLength={16}
+                className="flex-1 sm:w-36 bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white placeholder:text-zinc-500 focus:border-accent-blue outline-none"
+              />
+              <button
+                type="submit"
+                className="p-2 rounded-xl bg-zinc-800 hover:bg-white hover:text-zinc-950 text-zinc-200 transition cursor-pointer"
+                title="Add Item"
+              >
+                <Plus size={15} />
+              </button>
+            </form>
           </div>
 
-          <div className="flex gap-3">
-            <button 
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center gap-1 bg-zinc-950 border border-zinc-800 rounded-xl px-2.5 py-1.5 text-xs text-zinc-400">
+              <span>Speed:</span>
+              {[
+                { label: '0.5x', ms: 1800 },
+                { label: '1x', ms: 1200 },
+                { label: '2x', ms: 650 },
+              ].map((s) => (
+                <button
+                  key={s.label}
+                  onClick={() => setSpeedMs(s.ms)}
+                  className={`px-2 py-0.5 rounded-md font-mono font-bold transition cursor-pointer ${
+                    speedMs === s.ms ? 'bg-white text-zinc-950' : 'hover:text-white'
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+
+            <button
               onClick={() => setIsPlaying(!isPlaying)}
               disabled={step >= totalSteps}
-              className={`px-6 py-2 rounded-lg font-bold transition ${isPlaying ? 'bg-amber-500/20 text-amber-400 border border-amber-500/50' : 'bg-accent-blue/20 text-accent-blue border border-accent-blue/50 hover:bg-accent-blue/30'} disabled:opacity-50`}
+              className={`px-4 sm:px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition cursor-pointer ${
+                isPlaying
+                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                  : 'bg-white text-zinc-950 hover:bg-zinc-200'
+              } disabled:opacity-40`}
             >
-              {isPlaying ? 'නවතින්න (Pause)' : 'ධාවනය (Play)'}
+              {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+              {isPlaying ? 'Pause' : 'Play'}
             </button>
-            <button 
-              onClick={() => { setIsPlaying(false); setStep(prev => Math.min(prev + 1, totalSteps)); }}
+
+            <button
+              onClick={() => {
+                setIsPlaying(false);
+                setStep((prev) => Math.min(prev + 1, totalSteps));
+              }}
               disabled={step >= totalSteps || isPlaying}
-              className="px-6 py-2 bg-white/5 border border-white/20 text-white rounded-lg font-bold hover:bg-white/10 transition disabled:opacity-50"
+              className="px-3.5 py-2.5 bg-zinc-800/80 border border-zinc-700 text-white rounded-xl font-semibold text-xs flex items-center gap-1.5 hover:bg-zinc-800 transition disabled:opacity-40 cursor-pointer"
             >
-              පියවර (Step)
+              <StepForward size={14} /> Step
             </button>
-            <button 
+
+            <button
               onClick={handleReset}
-              className="px-6 py-2 bg-red-500/10 border border-red-500/30 text-red-400 rounded-lg font-bold hover:bg-red-500/20 transition"
+              className="px-3.5 py-2.5 bg-zinc-950 border border-zinc-800 text-zinc-400 hover:text-white rounded-xl font-semibold text-xs flex items-center gap-1.5 transition cursor-pointer"
             >
-              Reset
+              <RotateCcw size={14} /> Reset
             </button>
           </div>
         </div>
 
-        {/* Main Interface Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
-          {/* Left Column: Code Editor */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold text-slate-200">Python Code</h3>
-            <div className="bg-[#0d1117] border border-white/10 rounded-xl p-6 font-mono text-sm leading-loose relative overflow-hidden">
-              <div className={`absolute left-0 w-full h-8 bg-accent-blue/20 border-l-4 border-accent-blue transition-all duration-300 ${step === 0 ? 'opacity-0' : 'opacity-100'}`} style={{ top: `${(activeCodeLine - 1) * 2.2 + 1.2}rem` }}></div>
-              
-              <div className="relative z-10">
-                <span className="text-pink-400">for</span> <span className="text-yellow-200">item</span> <span className="text-pink-400">in</span> <span className="text-blue-300">my_list</span>:<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-pink-400">print</span>(<span className="text-yellow-200">item</span>)
+        {/* Main Visualizer Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+          <div className="space-y-5">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                <Sparkles size={15} className="text-accent-blue" /> Python Execution Trace
+              </h3>
+              <span className="text-xs font-mono text-zinc-400">
+                Step {step} / {totalSteps}
+              </span>
+            </div>
+
+            <div className="bg-zinc-950 border border-zinc-800/90 rounded-2xl p-4 sm:p-5 font-mono text-xs sm:text-sm leading-loose space-y-1 overflow-x-auto">
+              <div className="px-3 py-1 rounded text-zinc-400">
+                <span className="text-indigo-300">{currentScenario.listName}</span> = [
+                {currentData.map((d, idx) => (
+                  <span key={idx} className="text-amber-300">
+                    &apos;{d}&apos;{idx < currentData.length - 1 ? ', ' : ''}
+                  </span>
+                ))}
+                ]
+              </div>
+              <div
+                className={`px-3 py-1 rounded transition-colors ${
+                  activeCodeLine === 2
+                    ? 'bg-accent-blue/20 border-l-4 border-accent-blue text-white font-bold'
+                    : 'text-zinc-300'
+                }`}
+              >
+                <span className="text-accent-blue">for</span>{' '}
+                <span className="text-white">{currentScenario.varName}</span>{' '}
+                <span className="text-accent-blue">in</span>{' '}
+                <span className="text-indigo-300">{currentScenario.listName}</span>:
+              </div>
+              <div
+                className={`px-3 py-1 rounded transition-colors ${
+                  activeCodeLine === 3
+                    ? 'bg-accent-blue/20 border-l-4 border-accent-blue text-white font-bold'
+                    : 'text-zinc-300'
+                }`}
+              >
+                &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-accent-blue">print</span>(
+                <span className="text-white">{currentScenario.varName}</span>)
               </div>
             </div>
 
-            {/* Variable Tracker */}
-            <h3 className="text-xl font-bold text-slate-200 pt-4">විචල්‍යයන් (Variables)</h3>
-            <div className="bg-accent-purple/10 border border-accent-purple/30 rounded-xl p-6 flex items-center justify-center">
-              {currentItem ? (
-                <motion.div 
-                  key={currentItem}
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  className="text-2xl font-mono text-white bg-accent-purple/40 px-6 py-3 rounded-lg border border-accent-purple"
-                >
-                  item = "{currentItem}"
-                </motion.div>
-              ) : (
-                <span className="text-slate-500 font-mono italic">Loop එක ආරම්භ කර නැත...</span>
-              )}
+            <div>
+              <h4 className="text-xs sm:text-sm font-bold text-zinc-300 mb-2.5">
+                විචල්‍යයන් (Current Variable in Memory)
+              </h4>
+              <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 min-h-[88px] flex items-center justify-between gap-2">
+                {currentItem ? (
+                  <>
+                    <div className="min-w-0">
+                      <span className="text-[11px] font-mono text-accent-blue block mb-1">
+                        Index [{currentItemIndex}]
+                      </span>
+                      <motion.div
+                        key={`${currentItem}-${step}`}
+                        initial={{ scale: 0.92, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="text-base sm:text-xl font-mono font-bold text-white truncate"
+                      >
+                        {currentScenario.varName} = &quot;{currentItem}&quot;
+                      </motion.div>
+                    </div>
+                    <span className="shrink-0 px-3 py-1 rounded-lg bg-accent-blue/20 border border-accent-blue/40 text-accent-blue text-xs font-bold">
+                      {step % 2 === 1 ? 'Assigned' : 'Printed'}
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-zinc-500 text-xs sm:text-sm">
+                    Loop එක ආරම්භ කිරීමට &quot;Play&quot; හෝ &quot;Step&quot; ඔබන්න...
+                  </span>
+                )}
+              </div>
             </div>
           </div>
 
-          {/* Right Column: Visualizer & Output */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold text-slate-200">දත්ත ගොනුව (The List)</h3>
-            <div className="flex gap-3 bg-white/5 border border-white/10 rounded-xl p-6 overflow-x-auto">
-              {currentData.map((item, index) => (
-                <div 
-                  key={index} 
-                  className={`flex-shrink-0 w-28 h-28 flex flex-col items-center justify-center rounded-xl border-2 transition-all duration-500 ${index === currentItemIndex && step > 0 && step < totalSteps + 1 ? 'border-accent-blue bg-accent-blue/20 scale-110 shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'border-white/20 bg-dark-bg text-slate-400'}`}
-                >
-                  <span className="text-xs mb-1 opacity-50">Index {index}</span>
-                  <span className={`font-bold text-center px-2 ${index === currentItemIndex && step > 0 ? 'text-white' : ''}`}>{item}</span>
-                </div>
-              ))}
+          <div className="space-y-5">
+            <h3 className="text-sm sm:text-base font-bold text-white">
+              දත්ත ලැයිස්තුව (Python List Items)
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 bg-zinc-950 border border-zinc-800 rounded-2xl p-4">
+              {currentData.map((item, index) => {
+                const isActive =
+                  index === currentItemIndex && step > 0 && step <= totalSteps;
+                const isVisited = index < Math.floor(step / 2);
+
+                return (
+                  <div
+                    key={`${item}-${index}`}
+                    className={`p-3 rounded-xl border text-center transition-all ${
+                      isActive
+                        ? 'border-accent-blue bg-accent-blue/15 text-white scale-105 shadow-md'
+                        : isVisited
+                        ? 'border-zinc-700 bg-zinc-900 text-zinc-200'
+                        : 'border-zinc-800/80 bg-zinc-900/40 text-zinc-500'
+                    }`}
+                  >
+                    <span className="text-[10px] font-mono block opacity-70 mb-1">
+                      Index {index}
+                    </span>
+                    <span className="font-bold text-xs break-all">{item}</span>
+                  </div>
+                );
+              })}
             </div>
 
-            <h3 className="text-xl font-bold text-slate-200 pt-4">ප්‍රතිදානය (Output Console)</h3>
-            <div className="bg-black border border-white/20 rounded-xl p-6 h-48 font-mono text-green-400 overflow-y-auto shadow-inner">
-              <div className="mb-2 text-slate-500 text-xs">{`Terminal >>`}</div>
+            <h3 className="text-sm sm:text-base font-bold text-white">
+              ප්‍රතිදානය (Terminal Output)
+            </h3>
+            <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 sm:p-5 h-40 font-mono text-xs sm:text-sm text-zinc-200 overflow-y-auto">
+              <div className="mb-2 text-zinc-500 text-xs">Terminal &gt;&gt;</div>
               {outputLines.map((line, idx) => (
-                <motion.div 
+                <motion.div
                   key={idx}
-                  initial={{ opacity: 0, x: -10 }}
+                  initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
+                  className="py-0.5 text-white"
                 >
+                  <span className="text-accent-blue mr-2">&gt;</span>
                   {line}
                 </motion.div>
               ))}
               {step >= totalSteps && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-accent-blue mt-4">
-                  [Process completed]
-                </motion.div>
+                <div className="text-accent-blue mt-2 text-xs font-bold">
+                  ✓ [Loop finished!]
+                </div>
               )}
             </div>
           </div>
-
         </div>
-      </div>
-    </section>
+      </TiltCard>
+    </div>
   );
 };
 
